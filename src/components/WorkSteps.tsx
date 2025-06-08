@@ -1,54 +1,94 @@
-import { CheckCircle, Search, CreditCard, FileText, Truck, Key } from 'lucide-react'
+import {
+  CheckCircle,
+  Search,
+  CreditCard,
+  FileText,
+  Truck,
+  Key,
+} from "lucide-react";
 
 export function WorkSteps() {
   const steps = [
     {
-      number: '01',
-      title: 'Консультация и подбор',
-      description: 'Обсуждаем ваши пожелания, бюджет и требования к автомобилю. Подбираем лучшие варианты.',
+      number: "01",
+      title: "Консультация и подбор",
+      description:
+        "Обсуждаем ваши пожелания, бюджет и требования к автомобилю. Подбираем лучшие варианты.",
       icon: <Search className="w-8 h-8" />,
-      details: ['Изучение ваших потребностей', 'Подбор оптимальных вариантов', 'Проверка истории автомобиля', 'Расчет полной стоимости']
+      details: [
+        "Изучение ваших потребностей",
+        "Подбор оптимальных вариантов",
+        "Проверка истории автомобиля",
+        "Расчет полной стоимости",
+      ],
     },
     {
-      number: '02',
-      title: 'Бронирование и договор',
-      description: 'Заключаем договор, вносите предоплату от 10% и бронируем выбранный автомобиль.',
+      number: "02",
+      title: "Бронирование и договор",
+      description:
+        "Заключаем договор, вносите предоплату от 10% и бронируем выбранный автомобиль.",
       icon: <FileText className="w-8 h-8" />,
-      details: ['Подписание договора', 'Внесение предоплаты', 'Бронирование автомобиля', 'Юридическое сопровождение']
+      details: [
+        "Подписание договора",
+        "Внесение предоплаты",
+        "Бронирование автомобиля",
+        "Юридическое сопровождение",
+      ],
     },
     {
-      number: '03',
-      title: 'Покупка и оформление',
-      description: 'Покупаем автомобиль в Европе, оформляем все необходимые документы для вывоза.',
+      number: "03",
+      title: "Покупка и оформление",
+      description:
+        "Покупаем автомобиль в Европе, оформляем все необходимые документы для вывоза.",
       icon: <CreditCard className="w-8 h-8" />,
-      details: ['Покупка в автосалоне', 'Оформление документов', 'Таможенное оформление', 'Страхование на время доставки']
+      details: [
+        "Покупка в автосалоне",
+        "Оформление документов",
+        "Таможенное оформление",
+        "Страхование на время доставки",
+      ],
     },
     {
-      number: '04',
-      title: 'Логистика и доставка',
-      description: 'Организуем транспортировку автомобиля в Россию на автовозе с полным страхованием.',
+      number: "04",
+      title: "Логистика и доставка",
+      description:
+        "Организуем транспортировку автомобиля в Россию на автовозе с полным страхованием.",
       icon: <Truck className="w-8 h-8" />,
-      details: ['Загрузка на автовоз', 'Отслеживание доставки', 'Таможенное оформление в РФ', 'Транспортировка до места назначения']
+      details: [
+        "Загрузка на автовоз",
+        "Отслеживание доставки",
+        "Таможенное оформление в РФ",
+        "Транспортировка до места назначения",
+      ],
     },
     {
-      number: '05',
-      title: 'Передача ключей',
-      description: 'Передаем вам готовый к эксплуатации автомобиль с полным пакетом документов.',
+      number: "05",
+      title: "Передача ключей",
+      description:
+        "Передаем вам готовый к эксплуатации автомобиль с полным пакетом документов.",
       icon: <Key className="w-8 h-8" />,
-      details: ['Финальная проверка авто', 'Оформление в ГИБДД', 'Передача документов', 'Получение ключей']
-    }
-  ]
+      details: [
+        "Финальная проверка авто",
+        "Оформление в ГИБДД",
+        "Передача документов",
+        "Получение ключей",
+      ],
+    },
+  ];
 
   return (
-    <section className="saraev-dark py-16 animate-in fade-in slide-in-from-left-8 duration-1000" id="work">
+    <section
+      className="saraev-dark py-16 animate-in fade-in slide-in-from-left-8 duration-1000"
+      id="work"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Как мы работаем
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Прозрачный процесс от консультации до получения ключей.
-            Полное сопровождение на каждом этапе с гарантией результата.
+            Прозрачный процесс от консультации до получения ключей. Полное
+            сопровождение на каждом этапе с гарантией результата.
           </p>
         </div>
 
@@ -66,7 +106,9 @@ export function WorkSteps() {
                 <div className="bg-gray-800 rounded-lg p-6 h-full hover:bg-gray-700 transition-colors group">
                   {/* Step Number */}
                   <div className="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full mb-4 mx-auto group-hover:bg-blue-500 transition-colors">
-                    <span className="text-white font-bold text-lg">{step.number}</span>
+                    <span className="text-white font-bold text-lg">
+                      {step.number}
+                    </span>
                   </div>
 
                   {/* Icon */}
@@ -86,7 +128,10 @@ export function WorkSteps() {
                     {/* Details List */}
                     <div className="space-y-2">
                       {step.details.map((detail) => (
-                        <div key={detail} className="flex items-center space-x-2 text-xs text-gray-400">
+                        <div
+                          key={detail}
+                          className="flex items-center space-x-2 text-xs text-gray-400"
+                        >
                           <CheckCircle className="w-3 h-3 text-green-400 flex-shrink-0" />
                           <span>{detail}</span>
                         </div>
@@ -110,7 +155,9 @@ export function WorkSteps() {
                 <div key={step.number} className="relative pl-16">
                   {/* Step dot */}
                   <div className="absolute left-3 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">{step.number}</span>
+                    <span className="text-white text-xs font-bold">
+                      {step.number}
+                    </span>
                   </div>
 
                   <div className="bg-gray-800 rounded-lg p-4">
@@ -130,7 +177,8 @@ export function WorkSteps() {
               Готовы начать?
             </h3>
             <p className="text-gray-300 mb-6">
-              Получите бесплатную консультацию и узнайте точную стоимость вашего будущего автомобиля
+              Получите бесплатную консультацию и узнайте точную стоимость вашего
+              будущего автомобиля
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -172,5 +220,5 @@ export function WorkSteps() {
         </div>
       </div>
     </section>
-  )
+  );
 }

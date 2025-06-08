@@ -1,77 +1,57 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { Menu, X, Phone, Send } from 'lucide-react'
-import { StarRating } from '@/components/ui/star-rating'
-import { cn } from '@/lib/utils'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
+import { Menu, X, Phone, Send, Zap } from "lucide-react";
+import { StarRating } from "@/components/ui/star-rating";
+import { Logo } from "@/components/ui/logo";
+import { cn } from "@/lib/utils";
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 0)
-    onScroll()
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
       className={cn(
-        'z-50 fixed inset-x-0 top-0 transition-all duration-500',
+        "z-50 fixed inset-x-0 top-0 transition-all duration-500",
         scrolled
-          ? 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg'
-          : 'bg-transparent'
+          ? "bg-black/60 backdrop-blur-lg border-b border-white/20 shadow-2xl"
+          : "bg-transparent",
       )}
     >
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-5">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
-              <span className="text-white font-bold text-xl">G</span>
-            </div>
-            <div>
-              <div className="text-white text-xl font-bold tracking-wide">
-                GLOBALSTARAUTO
-              </div>
-              <div className="text-xs text-gray-400 uppercase tracking-wider">
-                AUTO
-              </div>
-            </div>
+          <Link href="/">
+            <Logo size="xl" variant="light" />
           </Link>
-
-          {/* Rating */}
-          <div className="hidden lg:flex items-center space-x-2 bg-gray-800/50 rounded-full px-4 py-2 border border-gray-700">
-            <StarRating sizeClass="w-4 h-4" />
-            <div className="text-white font-semibold">4.9</div>
-            <div className="text-gray-300 text-sm">рейтинг в Яндекс</div>
-          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <Link
-              href="#calc"
-              className="text-gray-300 hover:text-white font-medium tracking-wide transition-all duration-300 hover:bg-gray-800/50 px-4 py-2 rounded-lg"
-            >
-              КАТАЛОГ
-            </Link>
-            <Link
-              href="#work"
-              className="text-gray-300 hover:text-white font-medium tracking-wide transition-all duration-300 hover:bg-gray-800/50 px-4 py-2 rounded-lg"
-            >
-              ЭТАПЫ РАБОТЫ
-            </Link>
-            <Link
-              href="#contacts"
-              className="text-gray-300 hover:text-white font-medium tracking-wide transition-all duration-300 hover:bg-gray-800/50 px-4 py-2 rounded-lg"
-            >
-              КОНТАКТЫ
-            </Link>
+            {[
+              { href: "#selector", label: "ПОДБОР АВТО" },
+              { href: "#work", label: "ЭТАПЫ РАБОТЫ" },
+              { href: "#contacts", label: "КОНТАКТЫ" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="relative group text-gray-300 hover:text-white font-semibold tracking-wide transition-all duration-300 px-6 py-3 text-lg"
+              >
+                <span className="relative z-10">{item.label}</span>
+                <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 border border-white/20" />
+              </Link>
+            ))}
           </nav>
 
           {/* Right side */}
@@ -79,60 +59,67 @@ export function Header() {
             {/* Phone */}
             <a
               href="tel:+74996477787"
-              className="hidden lg:flex items-center space-x-2 text-white hover:text-blue-400 transition-colors group"
+              className="hidden lg:flex items-center space-x-3 text-white hover:text-blue-300 transition-all duration-300 group bg-white/5 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10 hover:border-blue-400/50"
             >
-              <Phone className="w-4 h-4 group-hover:animate-pulse" />
-              <span className="font-semibold text-lg tracking-wide">8 499 647-77-87</span>
+              <Phone className="w-6 h-6 group-hover:animate-pulse" />
+              <span className="font-bold text-xl tracking-wide">
+                8 499 647-77-87
+              </span>
             </a>
 
             {/* Social buttons */}
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden md:flex items-center space-x-3">
               <a
                 href="https://t.me/globalstarauto"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-blue-500/25"
+                className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-blue-500/50"
               >
-                <Send className="w-5 h-5 text-white" />
+                <Send className="w-7 h-7 text-white group-hover:scale-110 transition-transform duration-300" />
               </a>
               <a
                 href="https://wa.me/79654128726"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-500/25"
+                className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-500/50"
               >
-                <span className="text-white font-bold text-sm">W</span>
+                <span className="text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300">
+                  W
+                </span>
               </a>
             </div>
 
             {/* CTA Button */}
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="hidden md:block bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105 border-0">
-                  ОБРАТНЫЙ ЗВОНОК
+                <Button className="group hidden md:flex items-center relative overflow-hidden bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 hover:from-orange-400 hover:via-red-400 hover:to-orange-400 text-white font-bold px-10 py-5 rounded-2xl shadow-lg hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0 text-lg">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-white/20 to-orange-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                  <Zap className="w-6 h-6 mr-3 flex-shrink-0" />
+                  <span className="whitespace-nowrap">ОБРАТНЫЙ ЗВОНОК</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-gray-900 border-gray-700 max-w-md">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-white mb-6 text-center">
+              <DialogContent className="bg-slate-900/95 backdrop-blur-md border border-white/20 max-w-md rounded-3xl">
+                <div className="p-8">
+                  <DialogTitle className="text-3xl font-bold text-white mb-8 text-center bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
                     Заказать обратный звонок
-                  </h3>
-                  <form className="space-y-5">
+                  </DialogTitle>
+                  <form className="space-y-6">
                     <div>
                       <input
                         type="text"
                         placeholder="Ваше имя"
-                        className="w-full p-4 rounded-xl bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none transition-colors text-lg"
+                        className="w-full p-5 rounded-2xl bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:border-blue-400/50 focus:outline-none transition-all duration-300 text-lg placeholder:text-white/50"
                       />
                     </div>
                     <div>
                       <input
                         type="tel"
                         placeholder="+7 (999) 999-99-99"
-                        className="w-full p-4 rounded-xl bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none transition-colors text-lg"
+                        className="w-full p-5 rounded-2xl bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:border-blue-400/50 focus:outline-none transition-all duration-300 text-lg placeholder:text-white/50"
                       />
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-4 rounded-xl shadow-lg border-0 text-lg">
+                    <Button className="group relative overflow-hidden w-full bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 hover:from-orange-400 hover:via-red-400 hover:to-orange-400 text-white font-semibold py-5 rounded-2xl shadow-lg border-0 text-lg">
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-white/20 to-orange-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                       Заказать звонок
                     </Button>
                   </form>
@@ -143,41 +130,41 @@ export function Header() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors"
+              className="lg:hidden p-4 text-gray-300 hover:text-white transition-colors bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? (
+                <X className="w-7 h-7" />
+              ) : (
+                <Menu className="w-7 h-7" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="lg:hidden py-6 border-t border-gray-700 bg-gray-900/95 backdrop-blur-lg">
+          <div className="lg:hidden py-8 border-t border-white/10 bg-black/60 backdrop-blur-lg rounded-b-3xl mt-4">
             <nav className="flex flex-col space-y-4">
-              <Link
-                href="#calc"
-                className="text-gray-300 hover:text-white transition-colors py-3 px-4 rounded-lg hover:bg-gray-800/50 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                КАТАЛОГ
-              </Link>
-              <Link
-                href="#work"
-                className="text-gray-300 hover:text-white transition-colors py-3 px-4 rounded-lg hover:bg-gray-800/50 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                ЭТАПЫ РАБОТЫ
-              </Link>
-              <Link
-                href="#contacts"
-                className="text-gray-300 hover:text-white transition-colors py-3 px-4 rounded-lg hover:bg-gray-800/50 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                КОНТАКТЫ
-              </Link>
+              {[
+                { href: "#selector", label: "ПОДБОР АВТО" },
+                { href: "#work", label: "ЭТАПЫ РАБОТЫ" },
+                { href: "#contacts", label: "КОНТАКТЫ" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-gray-300 hover:text-white transition-all duration-300 py-4 px-6 rounded-2xl hover:bg-white/10 font-semibold text-xl"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
 
-              <div className="flex items-center justify-between pt-4 border-t border-gray-700">
-                <a href="tel:+74996477787" className="text-white font-semibold">
+              <div className="flex items-center justify-between pt-6 border-t border-white/10 px-6">
+                <a
+                  href="tel:+74996477787"
+                  className="text-white font-bold text-xl"
+                >
                   8 499 647-77-87
                 </a>
                 <div className="flex space-x-3">
@@ -185,28 +172,29 @@ export function Header() {
                     href="https://t.me/globalstarauto"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center"
+                    className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center shadow-lg"
                   >
-                    <Send className="w-5 h-5 text-white" />
+                    <Send className="w-7 h-7 text-white" />
                   </a>
                   <a
                     href="https://wa.me/79654128726"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center"
+                    className="w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center shadow-lg"
                   >
-                    <span className="text-white font-bold text-sm">W</span>
+                    <span className="text-white font-bold text-xl">W</span>
                   </a>
                 </div>
               </div>
 
-              <Button className="mt-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold py-3 rounded-xl border-0">
-                ОБРАТНЫЙ ЗВОНОК
+              <Button className="group mt-6 mx-6 relative overflow-hidden bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 text-white font-bold py-5 rounded-2xl border-0 text-xl flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-white/20 to-orange-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                <span className="whitespace-nowrap">ОБРАТНЫЙ ЗВОНОК</span>
               </Button>
             </nav>
           </div>
         )}
       </div>
     </header>
-  )
+  );
 }

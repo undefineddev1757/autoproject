@@ -1,77 +1,138 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Input } from '@/components/ui/input'
-import { Calculator, CheckCircle } from 'lucide-react'
+import { useState } from "react";
+import { Calculator } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import {
+  CheckCircle,
+  Clock,
+  Users,
+  Settings,
+  Zap,
+} from "lucide-react";
 
 export function CarCalculator() {
   const [formData, setFormData] = useState({
-    brand: '',
-    model: '',
-    year: '',
-    engine: '',
-    budget: '',
-    name: '',
-    phone: ''
-  })
+    brand: "",
+    model: "",
+    year: "",
+    engine: "",
+    budget: "",
+    name: "",
+    phone: "",
+  });
 
   const carBrands = [
-    'Audi', 'BMW', 'Mercedes-Benz', 'Porsche', 'Land Rover', 'Lexus', 'Volkswagen'
-  ]
+    "Audi",
+    "BMW",
+    "Mercedes-Benz",
+    "Porsche",
+    "Land Rover",
+    "Lexus",
+    "Volkswagen",
+  ];
 
-  const years = Array.from({ length: 10 }, (_, i) => (2024 - i).toString())
+  const years = Array.from({ length: 10 }, (_, i) => (2024 - i).toString());
 
   return (
-    <section className="bg-gray-50 py-16 animate-in fade-in slide-in-from-bottom-8 duration-1000" id="calc">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <div className="text-blue-600 text-lg mb-4 italic">
-            [ подберем автомобиль под ваши параметры и бюджет ]
+    <section className="relative overflow-hidden py-24" id="calc">
+      {/* Background with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
+        {/* Animated background elements */}
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-16 animate-in slide-in-from-bottom duration-1000">
+          {/* Badge */}
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 mb-8">
+            <Calculator className="w-5 h-5 text-blue-400 mr-3" />
+            <span className="text-blue-200 text-lg font-medium">
+              Есть вопросы? мы поможем с выбором автомобиля
+            </span>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            ОСТАЛИСЬ <span className="text-blue-600">ВОПРОСЫ?</span>
+
+          <h2 className="text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-white">ОСТАЛИСЬ</span>{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              ВОПРОСЫ?
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+
+          <p className="text-xl lg:text-2xl text-blue-100/80 max-w-4xl mx-auto font-light leading-relaxed">
             Заполните форму и наш специалист свяжется с вами в ближайшее время
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-2xl p-8 border border-gray-100">
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
+        <div className="max-w-3xl mx-auto mb-20">
+          {/* Main form card with glassmorphism */}
+          <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-10 border border-white/20 shadow-2xl animate-in slide-in-from-bottom duration-1000 delay-300">
+            {/* Accent lines */}
+            <div className="absolute top-6 left-6 w-20 h-20 border-l-2 border-t-2 border-blue-400/50 rounded-tl-2xl" />
+            <div className="absolute bottom-6 right-6 w-20 h-20 border-r-2 border-b-2 border-purple-400/50 rounded-br-2xl" />
+
+            <form className="space-y-8 relative z-10">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-white/80 text-sm font-medium">
+                    Ваше имя
+                  </label>
                   <Input
-                    placeholder="Ваше имя"
-                    className="h-14 text-lg border-gray-300 rounded-xl bg-gray-100 placeholder:text-gray-500"
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder="Введите ваше имя"
+                    className="h-16 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 focus:border-blue-400/50 focus:bg-white/15 transition-all duration-300"
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                   />
                 </div>
-                <div className="relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
-                    <span className="text-2xl">🇷🇺</span>
+
+                <div className="space-y-2">
+                  <label className="text-white/80 text-sm font-medium">
+                    Телефон
+                  </label>
+                  <div className="relative">
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-2 z-10">
+                      <span className="text-2xl">🇷🇺</span>
+                    </div>
+                    <Input
+                      placeholder="+7 (999) 999-99-99"
+                      className="h-16 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 pl-20 focus:border-blue-400/50 focus:bg-white/15 transition-all duration-300"
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                    />
                   </div>
-                  <Input
-                    placeholder="+7 (999) 999-99-99"
-                    className="h-14 text-lg border-gray-300 rounded-xl bg-gray-100 placeholder:text-gray-500 pl-16"
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  />
                 </div>
               </div>
 
               <Button
                 size="lg"
-                className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-200"
+                className="group relative overflow-hidden w-full h-16 text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 hover:from-blue-500 hover:via-purple-500 hover:to-blue-500 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 border-0"
               >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-white/20 to-blue-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                <Zap className="w-6 h-6 mr-3" />
                 Отправить заявку
               </Button>
 
-              <p className="text-sm text-gray-500 text-center">
-                Нажимая на кнопку, вы соглашаетесь с{' '}
-                <a href="/privacy" className="text-red-500 hover:underline">
+              <p className="text-sm text-white/60 text-center leading-relaxed">
+                Нажимая на кнопку, вы соглашаетесь с{" "}
+                <a
+                  href="/privacy"
+                  className="text-blue-300 hover:text-blue-200 underline transition-colors duration-300"
+                >
                   политикой конфиденциальности
                 </a>
               </p>
@@ -79,26 +140,54 @@ export function CarCalculator() {
           </div>
         </div>
 
-        {/* Quick stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
-            <div className="text-sm text-gray-600">минут на заполнение</div>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="text-3xl font-bold text-blue-600 mb-2">24</div>
-            <div className="text-sm text-gray-600">часа на ответ</div>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="text-3xl font-bold text-blue-600 mb-2">3-5</div>
-            <div className="text-sm text-gray-600">вариантов подбора</div>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <div className="text-3xl font-bold text-blue-600 mb-2">0₽</div>
-            <div className="text-sm text-gray-600">стоимость консультации</div>
-          </div>
+        {/* Quick stats with improved design */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {[
+            {
+              icon: Clock,
+              number: "5",
+              text: "минут на заполнение",
+              gradient: "from-blue-500 to-cyan-500",
+            },
+            {
+              icon: Zap,
+              number: "24",
+              text: "часа на ответ",
+              gradient: "from-purple-500 to-pink-500",
+            },
+            {
+              icon: Settings,
+              number: "3-5",
+              text: "вариантов подбора",
+              gradient: "from-green-500 to-emerald-500",
+            },
+            {
+              icon: CheckCircle,
+              number: "0₽",
+              text: "стоимость консультации",
+              gradient: "from-orange-500 to-red-500",
+            },
+          ].map((stat, index) => (
+            <div
+              key={stat.text}
+              className="group text-center p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer animate-in slide-in-from-bottom duration-1000"
+              style={{ animationDelay: `${600 + index * 200}ms` }}
+            >
+              <div
+                className={`w-16 h-16 mx-auto mb-6 bg-gradient-to-r ${stat.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}
+              >
+                <stat.icon className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">
+                {stat.number}
+              </div>
+              <div className="text-white/80 text-sm leading-relaxed font-medium">
+                {stat.text}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

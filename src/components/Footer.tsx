@@ -1,47 +1,56 @@
-"use client"
+"use client";
 
-import { Send, MessageCircle } from 'lucide-react'
-import { StarRating } from '@/components/ui/star-rating'
+import { Send, MessageCircle } from "lucide-react";
 
 export function Footer() {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 py-12 text-gray-400">
-      <div className="container mx-auto px-6 text-center space-y-6">
-        <div className="flex justify-center items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-            <span className="text-white font-bold">G</span>
+    <footer className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-6 text-gray-400 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          {/* Company name only, no logo */}
+          <div className="text-white font-bold text-lg">
+            GLOBALSTARAUTO
           </div>
-          <span className="text-white font-bold text-xl">GLOBALSTARAUTO</span>
+
+          {/* Contact & Social */}
+          <div className="flex items-center space-x-6">
+            <a
+              href="tel:+74996477787"
+              className="text-white hover:text-blue-400 font-medium transition-colors duration-300"
+            >
+              8 499 647-77-87
+            </a>
+            <div className="flex space-x-3">
+              <a
+                href="https://t.me/globalstarauto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-8 h-8 rounded-xl bg-blue-500/20 hover:bg-blue-500 flex items-center justify-center transition-all duration-300"
+              >
+                <Send className="w-4 h-4 text-blue-400 group-hover:text-white" />
+              </a>
+              <a
+                href="https://wa.me/79654128726"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-8 h-8 rounded-xl bg-green-500/20 hover:bg-green-500 flex items-center justify-center transition-all duration-300"
+              >
+                <MessageCircle className="w-4 h-4 text-green-400 group-hover:text-white" />
+              </a>
+            </div>
+          </div>
+
+          {/* Copyright only */}
+          <div className="flex flex-col items-center md:items-end">
+            <div className="text-xs opacity-75">© {year} GLOBALSTARAUTO</div>
+          </div>
         </div>
-
-        <div className="flex justify-center space-x-4">
-          <a href="tel:+74996477787" className="text-white hover:text-blue-400">
-            8 499 647-77-87
-          </a>
-          <a
-            href="https://t.me/globalstarauto"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white"
-          >
-            <Send className="w-5 h-5" />
-          </a>
-          <a
-            href="https://wa.me/79654128726"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white"
-          >
-            <MessageCircle className="w-5 h-5" />
-          </a>
-        </div>
-
-        <StarRating className="justify-center" sizeClass="w-4 h-4" />
-
-        <div className="text-xs opacity-75">© {year} GLOBALSTARAUTO. Все права защищены.</div>
       </div>
     </footer>
-  )
+  );
 }

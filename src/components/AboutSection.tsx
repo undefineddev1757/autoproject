@@ -6,11 +6,9 @@ export function AboutSection() {
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             О компании
           </h2>
-          <p className="text-xl text-gray-300">
-            О компании в разработке...
-          </p>
+          <p className="text-xl text-gray-300">О компании в разработке...</p>
         </div>
       </div>
     </section>
-  )
+  );
 }

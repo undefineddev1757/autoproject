@@ -1,11 +1,11 @@
-import { Header } from '@/components/Header'
-import { HeroSection } from '@/components/HeroSection'
-import { CarCalculator } from '@/components/CarCalculator'
-import { WorkSteps } from '@/components/WorkSteps'
-import { GuaranteeSection } from '@/components/GuaranteeSection'
-import { FAQSection } from '@/components/FAQSection'
-import { ContactSection } from '@/components/ContactSection'
-import { Footer } from '@/components/Footer'
+import { Header } from "@/components/Header";
+import { HeroSection } from "@/components/HeroSection";
+import { CarSelector } from "@/components/CarSelector";
+import { WorkSteps } from "@/components/WorkSteps";
+import { GuaranteeSection } from "@/components/GuaranteeSection";
+import { FAQSection } from "@/components/FAQSection";
+import { CarCalculator } from "@/components/CarCalculator";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -13,13 +13,13 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <CarCalculator />
+        <CarSelector />
         <WorkSteps />
         <GuaranteeSection />
         <FAQSection />
-        <ContactSection />
+        <CarCalculator />
       </main>
       <Footer />
     </div>
-  )
+  );
 }

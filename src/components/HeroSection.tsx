@@ -1,146 +1,168 @@
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Calculator, MessageCircle, Star } from 'lucide-react'
-import { StarRating } from '@/components/ui/star-rating'
+import React from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Calculator,
+  MessageCircle,
+  Star,
+  Zap,
+  Shield,
+  Truck,
+  FileText,
+} from "lucide-react";
+import { StarRating } from "@/components/ui/star-rating";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-screen flex items-center pt-24 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full animate-pulse" />
-        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-purple-500/10 to-blue-500/10 rounded-full animate-pulse delay-1000" />
+    <section className="relative overflow-hidden min-h-screen flex items-center pt-20 sm:pt-32 pb-16 sm:pb-20">
+      {/* Advanced animated background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* BMW M4 CS Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{
+            backgroundImage: "url('/uploads/bmw_m_wallpaper_m4_cs_front_desktop.jpg.asset.1736439812863(1).png')"
+          }}
+        />
+        
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-purple-900/70 to-slate-900/80" />
+        
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-gradient-to-r from-cyan-400/20 to-blue-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000" />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
       </div>
 
-      <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
-        {/* ... existing content remains the same ... */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-3xl lg:text-5xl font-bold text-white leading-tight">
-                ЗАКАЖИТЕ ВАШ АВТОМОБИЛЬ НАПРЯМУЮ С АУКЦИОНОВ ЯПОНИИ, КОРЕИ ИЛИ ЕВРОПЫ И{' '}
-                <span className="text-blue-400">СЭКОНОМЬТЕ ДО 30% ОТ РЫНОЧНОЙ ЦЕНЫ</span>
-              </h1>
-
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Участвуйте в торгах онлайн вместе с нами! Полная прозрачность и честная цена без скрытых комиссий.
-              </p>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-8 py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-              >
-                <Calculator className="w-5 h-5 mr-2" />
-                Подобрать автомобиль
-              </Button>
-
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-lg px-8 py-6 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Смотреть каталог
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="flex flex-col sm:flex-row gap-8 pt-8 border-t border-gray-700">
-              <div className="text-center sm:text-left">
-                <div className="text-3xl font-bold text-white">8+</div>
-                <div className="text-gray-300">лет на рынке</div>
-              </div>
-              <div className="text-center sm:text-left">
-                <div className="text-3xl font-bold text-white">500+</div>
-                <div className="text-gray-300">довольных клиентов</div>
-              </div>
-              <div className="text-center sm:text-left">
-                <div className="text-3xl font-bold text-white">10%</div>
-                <div className="text-gray-300">предоплата</div>
-              </div>
-            </div>
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
+        <div className="flex flex-col items-center justify-center text-center space-y-8 sm:space-y-12">
+          {/* Badge */}
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10">
+            <Zap className="w-4 h-4 text-blue-400 mr-2" />
+            <span className="text-blue-200 text-xs sm:text-sm font-medium">
+              Прямые поставки с аукционов
+            </span>
           </div>
 
-          {/* Right content */}
-          <div className="relative">
-            {/* Rating badge */}
-            <div className="absolute top-4 right-4 z-10 bg-white rounded-lg p-4 shadow-lg">
-              <div className="flex items-center space-x-2">
-                <StarRating />
-                <span className="font-semibold text-gray-900">4.9</span>
+          <div className="space-y-6 sm:space-y-8 max-w-4xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+                ЗАКАЖИТЕ ВАШ
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                АВТОМОБИЛЬ
+              </span>
+              <br />
+              <span className="text-white/90">НАПРЯМУЮ</span>
+            </h1>
+
+            <div className="space-y-4 sm:space-y-6">
+              <p className="text-lg sm:text-xl lg:text-2xl text-blue-100/80 font-light leading-relaxed">
+                С аукционов Японии, Кореи или Европы
+              </p>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="h-1 w-12 sm:w-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+                <p className="text-base sm:text-lg text-purple-200 font-medium text-center">
+                  Экономия до 30% от рыночной цены
+                </p>
+                <div className="h-1 w-12 sm:w-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
               </div>
-              <div className="text-sm text-gray-600 mt-1">рейтинг в Яндекс</div>
             </div>
 
-            {/* Car image placeholder - would be replaced with actual car image */}
-            <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 aspect-[4/3] flex items-center justify-center">
-              <div className="text-center text-gray-400">
-                <div className="text-6xl mb-4">🚗</div>
-                <div className="text-lg">Премиальные автомобили</div>
-                <div className="text-sm">из Европы</div>
+            <p className="text-base sm:text-lg text-gray-300/80 leading-relaxed max-w-2xl mx-auto">
+              Участвуйте в торгах онлайн вместе с нами! Полная прозрачность
+              процесса и честная цена без скрытых комиссий.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex justify-center pt-4 w-full max-w-lg mx-auto">
+            <Button
+              size="lg"
+              className="group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 hover:from-blue-700 hover:via-purple-700 hover:to-blue-700 text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 border-0 w-full sm:w-auto"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-white/20 to-blue-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              <Calculator className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3" />
+              Подобрать автомобиль
+            </Button>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-8 sm:pt-12 border-t border-white/10 w-full max-w-lg mx-auto">
+            <div className="text-center group cursor-pointer">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                8+
+              </div>
+              <div className="text-gray-300 text-xs sm:text-sm mt-1">лет на рынке</div>
+            </div>
+            <div className="text-center group cursor-pointer">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                500+
+              </div>
+              <div className="text-gray-300 text-xs sm:text-sm mt-1">
+                довольных клиентов
               </div>
             </div>
-
-            {/* Floating contact buttons */}
-            <div className="absolute bottom-4 left-4 flex space-x-3">
-              <a
-                href="https://wa.me/79654128726"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center transition-colors shadow-lg"
-              >
-                <MessageCircle className="w-6 h-6 text-white" />
-              </a>
-              <a
-                href="https://t.me/globalstarauto"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center transition-colors shadow-lg"
-              >
-                <MessageCircle className="w-6 h-6 text-white" />
-              </a>
+            <div className="text-center group cursor-pointer">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-400 to-blue-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                10%
+              </div>
+              <div className="text-gray-300 text-xs sm:text-sm mt-1">предоплата</div>
             </div>
           </div>
         </div>
 
-        {/* Bottom features */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 pt-16 border-t border-gray-700">
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-2xl">🛡️</span>
+        {/* Bottom features with better mobile spacing */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-white/10">
+          {[
+            {
+              icon: Shield,
+              title: "Гарантия качества",
+              desc: "Проверенные автомобили с документами",
+              gradient: "from-blue-500 to-cyan-500",
+            },
+            {
+              icon: Zap,
+              title: "Быстрая доставка",
+              desc: "От 7 до 30 дней в зависимости от модели",
+              gradient: "from-purple-500 to-pink-500",
+            },
+            {
+              icon: Truck,
+              title: "Выгодные цены",
+              desc: "Экономия до 20% от рыночной стоимости",
+              gradient: "from-green-500 to-emerald-500",
+            },
+            {
+              icon: FileText,
+              title: "Полное сопровождение",
+              desc: "От подбора до получения ключей",
+              gradient: "from-orange-500 to-red-500",
+            },
+          ].map((feature, index) => (
+            <div
+              key={feature.title}
+              className="group text-center cursor-pointer animate-in slide-in-from-bottom duration-1000"
+              style={{ animationDelay: `${index * 200}ms` }}
+            >
+              <div
+                className={`w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-4 sm:mb-6 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}
+              >
+                <feature.icon className="w-8 sm:w-10 h-8 sm:h-10 text-white" />
+              </div>
+              <h3 className="text-white font-semibold mb-2 sm:mb-3 text-base sm:text-lg group-hover:text-blue-300 transition-colors duration-300">
+                {feature.title}
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {feature.desc}
+              </p>
             </div>
-            <h3 className="text-white font-semibold mb-2">Гарантия качества</h3>
-            <p className="text-gray-400 text-sm">Проверенные автомобили с документами</p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-2xl">⚡</span>
-            </div>
-            <h3 className="text-white font-semibold mb-2">Быстрая доставка</h3>
-            <p className="text-gray-400 text-sm">От 7 до 30 дней в зависимости от модели</p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-2xl">💰</span>
-            </div>
-            <h3 className="text-white font-semibold mb-2">Выгодные цены</h3>
-            <p className="text-gray-400 text-sm">Экономия до 20% от рыночной стоимости</p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-2xl">📋</span>
-            </div>
-            <h3 className="text-white font-semibold mb-2">Полное сопровождение</h3>
-            <p className="text-gray-400 text-sm">От подбора до получения ключей</p>
-          </div>
+          ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

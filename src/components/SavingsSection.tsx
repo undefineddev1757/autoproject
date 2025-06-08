@@ -1,37 +1,37 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { TrendingDown, Euro, DollarSign } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { TrendingDown, Euro, DollarSign } from "lucide-react";
 
 export function SavingsSection() {
   const savingsExamples = [
     {
-      model: 'Mercedes-Benz G63',
-      year: '2024',
-      russiaPrice: '38 500 000',
-      europePrice: '33 750 000',
-      savings: '4 750 000',
-      savingsPercent: '12,3%',
-      image: '🚙'
+      model: "Mercedes-Benz G63",
+      year: "2024",
+      russiaPrice: "38 500 000",
+      europePrice: "33 750 000",
+      savings: "4 750 000",
+      savingsPercent: "12,3%",
+      image: "🚙",
     },
     {
-      model: 'BMW X6M Competition',
-      year: '2021',
-      russiaPrice: '15 640 000',
-      europePrice: '14 749 000',
-      savings: '891 000',
-      savingsPercent: '5,7%',
-      image: '🚗'
+      model: "BMW X6M Competition",
+      year: "2021",
+      russiaPrice: "15 640 000",
+      europePrice: "14 749 000",
+      savings: "891 000",
+      savingsPercent: "5,7%",
+      image: "🚗",
     },
     {
-      model: 'Porsche Macan S',
-      year: '2020',
-      russiaPrice: '8 565 000',
-      europePrice: '7 265 000',
-      savings: '1 300 000',
-      savingsPercent: '15,2%',
-      image: '🏎️'
-    }
-  ]
+      model: "Porsche Macan S",
+      year: "2020",
+      russiaPrice: "8 565 000",
+      europePrice: "7 265 000",
+      savings: "1 300 000",
+      savingsPercent: "15,2%",
+      image: "🏎️",
+    },
+  ];
 
   return (
     <section className="saraev-dark py-16">
@@ -48,7 +48,10 @@ export function SavingsSection() {
 
         <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {savingsExamples.map((car, index) => (
-            <Card key={car.model} className="bg-white overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
+            <Card
+              key={car.model}
+              className="bg-white overflow-hidden group hover:shadow-2xl transition-shadow duration-300"
+            >
               <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 text-center">
                 <div className="text-6xl mb-4">{car.image}</div>
                 <Badge className="saraev-blue mb-4">
@@ -70,27 +73,41 @@ export function SavingsSection() {
                     <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <DollarSign className="w-4 h-4 text-red-600" />
-                        <span className="text-sm font-medium text-gray-700">Цена в России:</span>
+                        <span className="text-sm font-medium text-gray-700">
+                          Цена в России:
+                        </span>
                       </div>
-                      <span className="font-semibold text-red-600">{car.russiaPrice} ₽</span>
+                      <span className="font-semibold text-red-600">
+                        {car.russiaPrice} ₽
+                      </span>
                     </div>
 
                     <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <Euro className="w-4 h-4 text-green-600" />
-                        <span className="text-sm font-medium text-gray-700">Цена в Европе:</span>
+                        <span className="text-sm font-medium text-gray-700">
+                          Цена в Европе:
+                        </span>
                       </div>
-                      <span className="font-semibold text-green-600">{car.europePrice} ₽</span>
+                      <span className="font-semibold text-green-600">
+                        {car.europePrice} ₽
+                      </span>
                     </div>
 
                     <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
                       <div className="flex items-center space-x-2">
                         <TrendingDown className="w-5 h-5 text-blue-600" />
-                        <span className="font-medium text-gray-900">Экономия:</span>
+                        <span className="font-medium text-gray-900">
+                          Экономия:
+                        </span>
                       </div>
                       <div className="text-right">
-                        <div className="font-bold text-blue-600 text-lg">{car.savings} ₽</div>
-                        <div className="text-sm text-blue-600">{car.savingsPercent}</div>
+                        <div className="font-bold text-blue-600 text-lg">
+                          {car.savings} ₽
+                        </div>
+                        <div className="text-sm text-blue-600">
+                          {car.savingsPercent}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -158,16 +175,24 @@ export function SavingsSection() {
             <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white text-xl">📋</span>
             </div>
-            <h4 className="text-white font-semibold mb-2">Полный пакет документов</h4>
-            <p className="text-gray-300 text-sm">Все документы для постановки на учет в России</p>
+            <h4 className="text-white font-semibold mb-2">
+              Полный пакет документов
+            </h4>
+            <p className="text-gray-300 text-sm">
+              Все документы для постановки на учет в России
+            </p>
           </div>
 
           <div className="text-center p-6 bg-gray-800 rounded-lg">
             <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white text-xl">🔒</span>
             </div>
-            <h4 className="text-white font-semibold mb-2">Юридическая чистота</h4>
-            <p className="text-gray-300 text-sm">Проверка на угон, залоги и ограничения</p>
+            <h4 className="text-white font-semibold mb-2">
+              Юридическая чистота
+            </h4>
+            <p className="text-gray-300 text-sm">
+              Проверка на угон, залоги и ограничения
+            </p>
           </div>
 
           <div className="text-center p-6 bg-gray-800 rounded-lg">
@@ -175,10 +200,12 @@ export function SavingsSection() {
               <span className="text-white text-xl">🚚</span>
             </div>
             <h4 className="text-white font-semibold mb-2">Доставка до дома</h4>
-            <p className="text-gray-300 text-sm">Привозим автомобиль в удобное для вас место</p>
+            <p className="text-gray-300 text-sm">
+              Привозим автомобиль в удобное для вас место
+            </p>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
