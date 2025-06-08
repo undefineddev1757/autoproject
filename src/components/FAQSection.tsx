@@ -123,7 +123,6 @@ export function FAQSection() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Car, Search, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,8 +13,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+interface FormData {
+  brand: string;
+  model: string;
+  country: string;
+  yearFrom: string;
+  yearTo: string;
+  priceFrom: string;
+  priceTo: string;
+}
+
+const CAR_BRANDS = [
+  "Audi",
+  "BMW",
+  "Mercedes-Benz",
+  "Porsche",
+  "Land Rover",
+  "Lexus",
+  "Volkswagen",
+  "Toyota",
+  "Nissan",
+];
+
+const COUNTRIES = ["Япония", "Корея", "Германия", "США"];
+
+const YEARS = Array.from({ length: 20 }, (_, i) => (2024 - i).toString());
+
 export function CarSelector() {
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+  const [formData, setFormData] = useState<FormData>({
     brand: "",
     model: "",
     country: "",
@@ -22,22 +50,6 @@ export function CarSelector() {
     priceFrom: "",
     priceTo: "",
   });
-
-  const carBrands = [
-    "Audi",
-    "BMW",
-    "Mercedes-Benz",
-    "Porsche",
-    "Land Rover",
-    "Lexus",
-    "Volkswagen",
-    "Toyota",
-    "Nissan",
-  ];
-
-  const countries = ["Япония", "Корея", "Германия", "США"];
-
-  const years = Array.from({ length: 20 }, (_, i) => (2024 - i).toString());
 
   return (
     <section className="relative overflow-hidden py-24" id="selector">
@@ -82,7 +94,13 @@ export function CarSelector() {
             <div className="absolute top-6 left-6 w-20 h-20 border-l-2 border-t-2 border-indigo-400/50 rounded-tl-2xl" />
             <div className="absolute bottom-6 right-6 w-20 h-20 border-r-2 border-b-2 border-purple-400/50 rounded-br-2xl" />
 
-            <form className="space-y-8 relative z-10">
+            <form
+              className="space-y-8 relative z-10"
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push("/contact");
+              }}
+            >
               {/* First row */}
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="space-y-2">
@@ -98,7 +116,7 @@ export function CarSelector() {
                       <SelectValue placeholder="Выберите марку" />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
-                      {carBrands.map((brand) => (
+                      {CAR_BRANDS.map((brand) => (
                         <SelectItem
                           key={`brand-${brand}`}
                           value={brand}
@@ -137,7 +155,7 @@ export function CarSelector() {
                       <SelectValue placeholder="Откуда привезти" />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
-                      {countries.map((country) => (
+                      {COUNTRIES.map((country) => (
                         <SelectItem
                           key={country}
                           value={country}
@@ -166,7 +184,7 @@ export function CarSelector() {
                       <SelectValue placeholder="2020" />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
-                      {years.map((year) => (
+                      {YEARS.map((year) => (
                         <SelectItem
                           key={year}
                           value={year}
@@ -192,7 +210,7 @@ export function CarSelector() {
                       <SelectValue placeholder="2024" />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
-                      {years.map((year) => (
+                      {YEARS.map((year) => (
                         <SelectItem
                           key={year}
                           value={year}
@@ -235,6 +253,7 @@ export function CarSelector() {
               <div className="flex justify-center pt-4">
                 <Button
                   size="lg"
+                  type="submit"
                   className="group relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:via-purple-500 hover:to-indigo-500 text-xl px-12 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 border-0"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/0 via-white/20 to-indigo-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
