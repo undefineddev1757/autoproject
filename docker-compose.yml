@@ -1,14 +1,19 @@
 version: "3.9"
 
+x-common-env: &common-env
+  NODE_ENV: ${NODE_ENV:-production}
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile.web
+      args:
+        NODE_ENV: ${NODE_ENV:-production}
+    environment:
+      <<: *common-env
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
     depends_on:
       - api
 
@@ -16,9 +21,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.api
+      args:
+        NODE_ENV: ${NODE_ENV:-production}
+    environment:
+      <<: *common-env
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
     ports:
       - "5000:5000"
-    environment:
-      - NODE_ENV=production
-      - TELEGRAM_BOT_TOKEN=7798975929:AAHjLppY_X9aGW_WmLZrAlqxoXz7_4e8KEM
-      - TELEGRAM_CHAT_ID=-4623131945
+
