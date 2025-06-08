@@ -72,7 +72,7 @@ export function FAQSection() {
   ]
 
   return (
-    <section className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-16">
+    <section className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 py-16 animate-in fade-in duration-1000">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">

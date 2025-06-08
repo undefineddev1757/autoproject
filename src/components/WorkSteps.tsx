@@ -40,7 +40,7 @@ export function WorkSteps() {
   ]
 
   return (
-    <section className="saraev-dark py-16" id="work">
+    <section className="saraev-dark py-16 animate-in fade-in slide-in-from-left-8 duration-1000" id="work">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">

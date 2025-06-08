@@ -25,7 +25,7 @@ export function CarCalculator() {
   const years = Array.from({ length: 10 }, (_, i) => (2024 - i).toString())
 
   return (
-    <section className="bg-gray-50 py-16" id="calc">
+    <section className="bg-gray-50 py-16 animate-in fade-in slide-in-from-bottom-8 duration-1000" id="calc">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="text-blue-600 text-lg mb-4 italic">
