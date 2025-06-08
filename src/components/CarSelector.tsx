@@ -98,7 +98,11 @@ export function CarSelector() {
               className="space-y-8 relative z-10"
               onSubmit={(e) => {
                 e.preventDefault();
-                router.push("/contact");
+                const params = new URLSearchParams();
+                Object.entries(formData).forEach(([key, value]) => {
+                  if (value) params.set(key, value);
+                });
+                router.push(`/contact?${params.toString()}`);
               }}
             >
               {/* First row */}

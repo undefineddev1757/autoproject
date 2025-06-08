@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - TELEGRAM_BOT_TOKEN=7798975929:AAHjLppY_X9aGW_WmLZrAlqxoXz7_4e8KEM
+      - TELEGRAM_CHAT_ID=-4623131945
