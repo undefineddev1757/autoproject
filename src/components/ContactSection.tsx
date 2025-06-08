@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 
 export function ContactSection() {
   return (
-    <section className="bg-gray-50 py-16" id="contacts">
+    <section className="bg-gray-50 py-16 animate-in fade-in slide-in-from-bottom-8 duration-1000" id="contacts">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
