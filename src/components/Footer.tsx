@@ -1,3 +1,5 @@
+"use client"
+
 import { MessageCircle, Send, ArrowUp, Star } from 'lucide-react'
 
 export function Footer() {

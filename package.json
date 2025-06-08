@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0 --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "bunx biome lint --write && bunx tsc --noEmit",
-    "format": "bunx biome format --write"
+    "dev": "npx next dev -H 0.0.0.0 --turbopack",
+    "build": "npx next build",
+    "start": "npx next start",
+    "lint": "npx biome lint --write && npx tsc --noEmit",
+    "format": "npx biome format --write"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
