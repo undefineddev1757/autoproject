@@ -84,7 +84,7 @@ export function FAQSection() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-4">
             {faqs.map((faq, index) => (
               <div
                 key={faq.question}
