@@ -1,20 +1,14 @@
-FROM node:20-alpine AS deps
+FROM node:20-alpine
 WORKDIR /app
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 COPY package.json package-lock.json* pnpm-lock.yaml* ./
-RUN npm install --production
+RUN npm install
 
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN if [ "$NODE_ENV" = "production" ]; then npm run build; fi
 
-FROM node:20-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/public ./public
-COPY package.json .
 EXPOSE 3000
-CMD ["npx", "next", "start"] 
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then npx next start; else npx next dev -H 0.0.0.0; fi"]

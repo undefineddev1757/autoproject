@@ -1,7 +1,12 @@
 FROM node:20-alpine
 WORKDIR /app
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 COPY package.json package-lock.json* pnpm-lock.yaml* ./
-RUN npm install --production
+RUN npm install
+
 COPY . .
 EXPOSE 5000
-CMD ["npm", "run", "dev:server"] 
+CMD ["sh", "-c", "npm run dev:server"]

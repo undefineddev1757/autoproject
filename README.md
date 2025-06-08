@@ -37,3 +37,19 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Contact Page
 After selecting a car you will be redirected to `/contact` to provide your email and phone.
+
+## Docker
+
+The compose file supports switching between development and production modes using the `NODE_ENV` variable.
+
+Run in development mode:
+
+```bash
+NODE_ENV=development docker compose up --build
+```
+
+Run in production mode (default):
+
+```bash
+docker compose up --build
+```
