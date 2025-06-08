@@ -5,26 +5,28 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Menu, X, Phone, Send } from 'lucide-react'
+import { StarRating } from '@/components/ui/star-rating'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isAtTop, setIsAtTop] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100)
+      setIsAtTop(window.scrollY < 10)
     }
 
     window.addEventListener('scroll', handleScroll)
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-gray-900/95 backdrop-blur-lg shadow-2xl transform translate-y-0'
-          : 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900'
+      className={`z-50 transition-all duration-500 ${
+        isAtTop
+          ? 'fixed inset-x-0 top-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900'
+          : 'relative bg-gray-900'
       }`}
     >
       <div className="container mx-auto px-6">
@@ -46,13 +48,7 @@ export function Header() {
 
           {/* Rating */}
           <div className="hidden lg:flex items-center space-x-2 bg-gray-800/50 rounded-full px-4 py-2 border border-gray-700">
-            <div className="flex space-x-1">
-              <span className="text-yellow-400 text-lg">★</span>
-              <span className="text-yellow-400 text-lg">★</span>
-              <span className="text-yellow-400 text-lg">★</span>
-              <span className="text-yellow-400 text-lg">★</span>
-              <span className="text-yellow-400 text-lg">★</span>
-            </div>
+            <StarRating sizeClass="w-4 h-4" />
             <div className="text-white font-semibold">4.9</div>
             <div className="text-gray-300 text-sm">рейтинг в Яндекс</div>
           </div>
