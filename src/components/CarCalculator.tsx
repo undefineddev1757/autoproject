@@ -12,13 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import {
-  CheckCircle,
-  Clock,
-  Users,
-  Settings,
-  Zap,
-} from "lucide-react";
+import { CheckCircle, Clock, Users, Settings, Zap } from "lucide-react";
 
 export function CarCalculator() {
   const [formData, setFormData] = useState({

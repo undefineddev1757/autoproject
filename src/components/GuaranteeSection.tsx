@@ -51,7 +51,7 @@ export function GuaranteeSection() {
         {/* Animated gradient orbs */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-600/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-600/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
-        
+
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20" />
       </div>
@@ -86,9 +86,11 @@ export function GuaranteeSection() {
             >
               {/* Gradient overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-              
+
               <div className="relative z-10">
-                <div className={`flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${guarantee.gradient} rounded-2xl mb-6 mx-auto group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl`}>
+                <div
+                  className={`flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${guarantee.gradient} rounded-2xl mb-6 mx-auto group-hover:scale-110 transition-all duration-500 shadow-lg group-hover:shadow-xl`}
+                >
                   <div className="text-white group-hover:scale-110 transition-transform duration-300">
                     {guarantee.icon}
                   </div>
@@ -110,7 +112,7 @@ export function GuaranteeSection() {
         <div className="relative overflow-hidden bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-8 sm:p-12 max-w-5xl mx-auto border border-white/20 shadow-2xl">
           {/* Animated background */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 animate-pulse" />
-          
+
           <div className="relative z-10">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12">
               <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
@@ -120,20 +122,40 @@ export function GuaranteeSection() {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {[
-                { value: "8+", label: "лет на рынке", gradient: "from-blue-400 to-cyan-400" },
-                { value: "2000+", label: "довольных клиентов", gradient: "from-purple-400 to-pink-400" },
-                { value: "30%", label: "средняя экономия", gradient: "from-green-400 to-emerald-400" },
-                { value: "100%", label: "успешных сделок", gradient: "from-orange-400 to-red-400" },
+                {
+                  value: "8+",
+                  label: "лет на рынке",
+                  gradient: "from-blue-400 to-cyan-400",
+                },
+                {
+                  value: "2000+",
+                  label: "довольных клиентов",
+                  gradient: "from-purple-400 to-pink-400",
+                },
+                {
+                  value: "30%",
+                  label: "средняя экономия",
+                  gradient: "from-green-400 to-emerald-400",
+                },
+                {
+                  value: "100%",
+                  label: "успешных сделок",
+                  gradient: "from-orange-400 to-red-400",
+                },
               ].map((stat, index) => (
-                <div 
+                <div
                   key={stat.label}
                   className="text-center group cursor-pointer animate-in slide-in-from-bottom duration-1000"
                   style={{ animationDelay: `${index * 200 + 600}ms` }}
                 >
-                  <div className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}
+                  >
                     {stat.value}
                   </div>
-                  <div className="text-gray-300 text-sm sm:text-base font-medium">{stat.label}</div>
+                  <div className="text-gray-300 text-sm sm:text-base font-medium">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
