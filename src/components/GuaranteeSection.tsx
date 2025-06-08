@@ -1,4 +1,5 @@
 import { Shield, CheckCircle, Users, Award, Clock, Star } from 'lucide-react'
+import { StarRating } from '@/components/ui/star-rating'
 
 export function GuaranteeSection() {
   const guarantees = [
@@ -105,13 +106,7 @@ export function GuaranteeSection() {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex justify-center mb-4">
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              </div>
+              <StarRating className="justify-center mb-4" sizeClass="w-5 h-5" />
               <p className="text-gray-600 italic mb-4">
                 "Сэкономил более 2 млн рублей на покупке BMW X6. Процесс был абсолютно прозрачным."
               </p>
@@ -119,13 +114,7 @@ export function GuaranteeSection() {
             </div>
 
             <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex justify-center mb-4">
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              </div>
+              <StarRating className="justify-center mb-4" sizeClass="w-5 h-5" />
               <p className="text-gray-600 italic mb-4">
                 "Отличный сервис! Менеджер сопровождал на каждом этапе. Рекомендую всем!"
               </p>
@@ -133,13 +122,7 @@ export function GuaranteeSection() {
             </div>
 
             <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex justify-center mb-4">
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-              </div>
+              <StarRating className="justify-center mb-4" sizeClass="w-5 h-5" />
               <p className="text-gray-600 italic mb-4">
                 "Быстро, качественно, честно. Получил Mercedes E-Class в идеальном состоянии."
               </p>

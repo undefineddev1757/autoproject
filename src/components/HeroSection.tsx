@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Calculator, MessageCircle, Star } from 'lucide-react'
+import { StarRating } from '@/components/ui/star-rating'
 
 export function HeroSection() {
   return (
@@ -68,13 +69,7 @@ export function HeroSection() {
             {/* Rating badge */}
             <div className="absolute top-4 right-4 z-10 bg-white rounded-lg p-4 shadow-lg">
               <div className="flex items-center space-x-2">
-                <div className="flex space-x-1">
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                </div>
+                <StarRating />
                 <span className="font-semibold text-gray-900">4.9</span>
               </div>
               <div className="text-sm text-gray-600 mt-1">рейтинг в Яндекс</div>
