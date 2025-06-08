@@ -1,17 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Menu, X, Phone, Send } from 'lucide-react'
 import { StarRating } from '@/components/ui/star-rating'
+import { cn } from '@/lib/utils'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="z-50 fixed inset-x-0 top-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-all duration-500">
+    <header
+      className={cn(
+        'z-50 fixed inset-x-0 top-0 transition-all duration-500',
+        scrolled
+          ? 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg'
+          : 'bg-transparent'
+      )}
+    >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
