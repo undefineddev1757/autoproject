@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
@@ -9,26 +9,9 @@ import { StarRating } from '@/components/ui/star-rating'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isAtTop, setIsAtTop] = useState(true)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsAtTop(window.scrollY < 10)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   return (
-    <header
-      className={`z-50 transition-all duration-500 ${
-        isAtTop
-          ? 'fixed inset-x-0 top-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900'
-          : 'relative bg-gray-900'
-      }`}
-    >
+    <header className="z-50 fixed inset-x-0 top-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-all duration-500">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
