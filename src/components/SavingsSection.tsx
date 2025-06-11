@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingDown, Euro, DollarSign } from "lucide-react";
+import { SiAudi, SiBmw, SiMercedes, SiPorsche, SiLandrover } from "react-icons/si";
+import { FaCarSide } from "react-icons/fa";
 
 export function SavingsSection() {
   const savingsExamples = [
@@ -124,45 +126,45 @@ export function SavingsSection() {
           </h3>
 
           <div className="grid grid-cols-3 lg:grid-cols-6 gap-8 items-center max-w-4xl mx-auto">
-            {/* Brand logos - using emojis as placeholders */}
+            {/* Brand logos */}
             <div className="group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-white rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                <span className="text-2xl">🅰️</span>
+                <SiAudi className="w-8 h-8 text-gray-900" />
               </div>
               <p className="text-white text-sm mt-2">Audi</p>
             </div>
 
             <div className="group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-white rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                <span className="text-2xl">🔵</span>
+                <SiBmw className="w-8 h-8 text-gray-900" />
               </div>
               <p className="text-white text-sm mt-2">BMW</p>
             </div>
 
             <div className="group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-white rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                <span className="text-2xl">⭐</span>
+                <SiMercedes className="w-8 h-8 text-gray-900" />
               </div>
               <p className="text-white text-sm mt-2">Mercedes</p>
             </div>
 
             <div className="group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-white rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                <span className="text-2xl">🦬</span>
+                <SiPorsche className="w-8 h-8 text-gray-900" />
               </div>
               <p className="text-white text-sm mt-2">Porsche</p>
             </div>
 
             <div className="group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-white rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                <span className="text-2xl">🟢</span>
+                <SiLandrover className="w-8 h-8 text-gray-900" />
               </div>
               <p className="text-white text-sm mt-2">Land Rover</p>
             </div>
 
             <div className="group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-white rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                <span className="text-2xl">🔶</span>
+                <FaCarSide className="w-8 h-8 text-gray-900" />
               </div>
               <p className="text-white text-sm mt-2">Lexus</p>
             </div>

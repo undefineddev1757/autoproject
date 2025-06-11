@@ -3,6 +3,24 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Car, Search, ArrowRight } from "lucide-react";
+import {
+  SiAudi,
+  SiBmw,
+  SiMercedes,
+  SiPorsche,
+  SiLandrover,
+  SiToyota,
+  SiHonda,
+  SiHyundai,
+  SiKia,
+  SiMazda,
+  SiFord,
+  SiChevrolet,
+  SiVolvo,
+  SiJeep,
+  SiTesla,
+} from "react-icons/si";
+import { FaCarSide } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -45,6 +63,25 @@ const CAR_BRANDS = [
   "Jeep",
   "Tesla",
 ];
+
+const BRAND_ICONS: Record<string, React.ElementType> = {
+  BMW: SiBmw,
+  "Mercedes-Benz": SiMercedes,
+  Audi: SiAudi,
+  Toyota: SiToyota,
+  Lexus: FaCarSide,
+  Porsche: SiPorsche,
+  Honda: SiHonda,
+  Hyundai: SiHyundai,
+  Kia: SiKia,
+  Mazda: SiMazda,
+  Ford: SiFord,
+  Chevrolet: SiChevrolet,
+  Volvo: SiVolvo,
+  Jeep: SiJeep,
+  Tesla: SiTesla,
+  "Land Rover": SiLandrover,
+};
 
 
 const YEARS = Array.from({ length: 20 }, (_, i) => (2024 - i).toString());
@@ -275,18 +312,24 @@ export function CarSelector() {
               "Volvo",
               "Jeep",
               "Tesla",
-            ].map((brand, index) => (
-              <div
-                key={`brand-${brand}`}
-                className="group cursor-pointer bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-indigo-400/50 transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom duration-1000"
-                style={{ animationDelay: `${800 + index * 100}ms` }}
+              "Land Rover",
+            ].map((brand, index) => {
+              const Icon = BRAND_ICONS[brand] || FaCarSide;
+              return (
+                <div
+                  key={`brand-${brand}`}
+                  className="group cursor-pointer bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-indigo-400/50 transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom duration-1000"
+                  style={{ animationDelay: `${800 + index * 100}ms` }}
                 >
-                  <div className="text-white font-semibold text-lg group-hover:text-indigo-300 transition-colors duration-300">
-                    {brand}
+                  <div className="flex items-center space-x-2">
+                    <Icon className="w-5 h-5 text-white group-hover:text-indigo-300 transition-colors duration-300" />
+                    <span className="text-white font-semibold text-lg group-hover:text-indigo-300 transition-colors duration-300">
+                      {brand}
+                    </span>
                   </div>
                 </div>
-              ),
-            )}
+              );
+            })}
           </div>
         </div>
       </div>
