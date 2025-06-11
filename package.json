@@ -43,6 +43,7 @@
     "typescript": "^5.8.3",
     "bippy": "^0.3.16",
     "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "eslint-plugin-react-hooks": "^5.2.0"
   }
 }

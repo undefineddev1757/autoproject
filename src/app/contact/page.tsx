@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export default function ContactPage() {
+function ContactPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -17,9 +17,9 @@ export default function ContactPage() {
 
   // Convert search params to record for message formatting
   const paramsRecord: Record<string, string> = {};
-  searchParams.forEach((value, key) => {
+  for (const [key, value] of searchParams.entries()) {
     if (value && value !== "any") paramsRecord[key] = value;
-  });
+  }
 
   const validateEmail = (value: string) => /\S+@\S+\.\S+/.test(value);
   const validatePhone = (value: string) => value.replace(/\D/g, "").length >= 10;
@@ -27,7 +27,7 @@ export default function ContactPage() {
   const formatSearchParamsToMessage = (params: Record<string, string>): string => {
     if (Object.keys(params).length === 0) return "Запрос без параметров поиска";
     let message = "Интересует автомобиль со следующими параметрами:\n";
-    Object.entries(params).forEach(([k, v]) => {
+    for (const [k, v] of Object.entries(params)) {
       switch (k) {
         case "brand":
           message += `Марка: ${v}\n`;
@@ -53,7 +53,7 @@ export default function ContactPage() {
         default:
           message += `${k}: ${v}\n`;
       }
-    });
+    }
     return message;
   };
 
@@ -152,5 +152,13 @@ export default function ContactPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageContent />
+    </Suspense>
   );
 }

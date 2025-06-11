@@ -99,9 +99,9 @@ export function CarSelector() {
               onSubmit={(e) => {
                 e.preventDefault();
                 const params = new URLSearchParams();
-                Object.entries(formData).forEach(([key, value]) => {
+                for (const [key, value] of Object.entries(formData)) {
                   if (value) params.set(key, value);
-                });
+                }
                 router.push(`/contact?${params.toString()}`);
               }}
             >
