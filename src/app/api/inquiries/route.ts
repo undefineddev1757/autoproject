@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import TelegramBot from "node-telegram-bot-api";
-import { insertInquirySchema, Inquiry } from "@/lib/inquirySchema";
+import { insertInquirySchema, type Inquiry } from "@/lib/inquirySchema";
 import { z } from "zod";
 
 // Reuse one bot instance per environment
@@ -47,14 +47,17 @@ export async function POST(req: NextRequest) {
 
 function formatInquiryMessage(inquiry: Inquiry) {
   const { email, phone, message, createdAt } = inquiry;
-  let formatted = `<b>🚗 Новая заявка с сайта!</b>\n\n`;
+  let formatted = "<b>🚗 Новая заявка с сайта!</b>\n\n";
   formatted += `<b>Email:</b> ${email}\n`;
   formatted += `<b>Телефон:</b> ${phone}\n`;
   if (message) {
-    formatted += `\n<b>Параметры поиска:</b>\n`;
-    const stripped = message.replace(/Интересует автомобиль со следующими параметрами:\n/, "");
+    formatted += "\n<b>Параметры поиска:</b>\n";
+    const stripped = message.replace(
+      /Интересует автомобиль со следующими параметрами:\n/,
+      "",
+    );
     formatted += stripped;
   }
   formatted += `\n<i>Дата: ${new Date(createdAt).toLocaleString("ru-RU")}</i>`;
   return formatted;
-} 
+}
