@@ -301,7 +301,6 @@ export function CarSelector() {
               "Mercedes-Benz",
               "Audi",
               "Toyota",
-              "Lexus",
               "Porsche",
               "Honda",
               "Hyundai",
