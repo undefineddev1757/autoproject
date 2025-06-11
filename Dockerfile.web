@@ -5,10 +5,12 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 COPY package.json package-lock.json* pnpm-lock.yaml* ./
-RUN npm install
+RUN corepack enable \
+    && corepack prepare pnpm@latest --activate \
+    && pnpm install --frozen-lockfile
 
 COPY . .
-RUN if [ "$NODE_ENV" = "production" ]; then npm run build; fi
+RUN if [ "$NODE_ENV" = "production" ]; then pnpm run build; fi
 
 EXPOSE 3000
-CMD ["sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then npx next start; else npx next dev -H 0.0.0.0; fi"]
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = 'production' ]; then pnpm exec next start; else pnpm exec next dev -H 0.0.0.0; fi"]
