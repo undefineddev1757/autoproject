@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.12.1",
   "scripts": {
     "dev": "npx next dev -H 0.0.0.0 --turbopack",
-    "dev:server": "ts-node --esm -r tsconfig-paths/register ./server/index.ts",
+    "dev:server": "ts-node --project tsconfig.server.json ./server/index.ts",
     "build": "npx next build",
     "start": "npx next start",
     "lint": "biome lint --write && tsc --noEmit",
