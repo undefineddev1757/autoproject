@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +14,16 @@ import {
 import { StarRating } from "@/components/ui/star-rating";
 
 export function HeroSection() {
+  const scrollToCalculator = () => {
+    const calcElement = document.getElementById("selector");
+    if (calcElement) {
+      calcElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <section className="relative overflow-hidden min-h-screen flex items-center pt-20 sm:pt-32 pb-16 sm:pb-20">
       {/* Advanced animated background */}
@@ -82,6 +94,7 @@ export function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex justify-center pt-4 w-full max-w-lg mx-auto">
             <Button
+              onClick={scrollToCalculator}
               size="lg"
               className="group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 hover:from-blue-700 hover:via-purple-700 hover:to-blue-700 text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 border-0 w-full sm:w-auto"
             >
