@@ -25,8 +25,8 @@ services:
         NODE_ENV: ${NODE_ENV:-production}
     environment:
       <<: *common-env
-      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
-      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+      TELEGRAM_BOT_TOKEN: 7798975929:AAHjLppY_X9aGW_WmLZrAlqxoXz7_4e8KEM
+      TELEGRAM_CHAT_ID: -4623131945
     ports:
       - "5000:5000"
 
