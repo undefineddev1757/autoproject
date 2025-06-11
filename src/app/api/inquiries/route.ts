@@ -46,9 +46,14 @@ export async function POST(req: NextRequest) {
 }
 
 function formatInquiryMessage(inquiry: Inquiry) {
-  const { email, phone, message, createdAt } = inquiry;
+  const { name, email, phone, message, createdAt } = inquiry;
   let formatted = "<b>🚗 Новая заявка с сайта!</b>\n\n";
-  formatted += `<b>Email:</b> ${email}\n`;
+  if (name) {
+    formatted += `<b>Имя:</b> ${name}\n`;
+  }
+  if (email) {
+    formatted += `<b>Email:</b> ${email}\n`;
+  }
   formatted += `<b>Телефон:</b> ${phone}\n`;
   if (message) {
     formatted += "\n<b>Параметры поиска:</b>\n";

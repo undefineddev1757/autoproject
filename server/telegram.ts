@@ -38,7 +38,9 @@ function formatInquiryMessage(inquiry: Inquiry) {
   if (name) {
     formatted += `<b>Имя:</b> ${name}\n`;
   }
-  formatted += `<b>Email:</b> ${email}\n`;
+  if (email) {
+    formatted += `<b>Email:</b> ${email}\n`;
+  }
   formatted += `<b>Телефон:</b> ${phone}\n`;
   if (message) {
     formatted += `\n<b>Параметры поиска:</b>\n`;

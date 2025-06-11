@@ -116,12 +116,11 @@ export function CarCalculator() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 setIsLoading(true);
-                const message = "Запрос с формы калькулятора";
+                const message = "Запрос с формы \"Остались вопросы\"";
                 try {
                   await submitInquiry({
                     name: formData.name,
                     phone: formData.phone,
-                    email: "noreply@example.com",
                     message,
                   });
                   setIsSent(true);
@@ -154,7 +153,7 @@ export function CarCalculator() {
                       <span className="text-2xl">🇷🇺</span>
                     </div>
                     <Input
-                      placeholder="+7 (999) 999-99-99"
+                      placeholder="+7 (999) 000-00-00"
                       className="h-16 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 pl-20 focus:border-blue-400/50 focus:bg-white/15 transition-all duration-300"
                       onChange={(e) => handlePhoneChange(e.target.value)}
                       value={formData.phone}
