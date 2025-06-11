@@ -73,7 +73,7 @@ export function Header() {
             >
               <Phone className="w-6 h-6 group-hover:animate-pulse" />
               <span className="font-bold text-xl tracking-wide">
-                8 499 647-77-87
+                +7 (499) 647-77-87
               </span>
             </a>
 
@@ -204,7 +204,7 @@ export function Header() {
                   href="tel:+74996477787"
                   className="text-white font-bold text-xl"
                 >
-                  8 499 647-77-87
+                  +7 (499) 647-77-87
                 </a>
                 <div className="flex space-x-3">
                   <a
