@@ -7,7 +7,7 @@ ENV NODE_ENV=${NODE_ENV}
 COPY package.json package-lock.json* pnpm-lock.yaml* ./
 RUN corepack enable \
     && corepack prepare pnpm@latest --activate \
-    && pnpm install --frozen-lockfile
+    && pnpm install --no-frozen-lockfile
 
 COPY . .
 RUN if [ "$NODE_ENV" = "production" ]; then pnpm run build; fi
