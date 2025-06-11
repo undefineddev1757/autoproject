@@ -13,7 +13,7 @@ export function Footer() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
           {/* Company name only, no logo */}
-          <div className="text-white font-bold text-lg">GLOBALSTARAUTO</div>
+          <div className="text-white font-bold text-lg">GLOBAL STAR AUTO</div>
 
           {/* Contact & Social */}
           <div className="flex items-center space-x-6">
@@ -45,7 +45,7 @@ export function Footer() {
 
           {/* Copyright only */}
           <div className="flex flex-col items-center md:items-end">
-            <div className="text-xs opacity-75">© {year} GLOBALSTARAUTO</div>
+            <div className="text-xs opacity-75">© {year} GLOBAL STAR AUTO</div>
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@ export function Logo({
       {/* Simple logo image */}
       <img
         src={logoImageSrc}
-        alt="GlobalStarAuto Logo"
+        alt="Global Star Auto Logo"
         className={cn("object-contain", sizeClasses[size])}
       />
 
@@ -47,7 +47,7 @@ export function Logo({
               variant === "dark" && "from-slate-800 via-slate-700 to-slate-600",
             )}
           >
-            GLOBALSTARAUTO
+            GLOBAL STAR AUTO
           </div>
           {size !== "sm" && (
             <div
