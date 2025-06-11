@@ -115,7 +115,7 @@ export function CarSelector() {
               }}
             >
               {/* First row */}
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-white/80 text-sm font-medium">
                     Марка автомобиля
@@ -154,7 +154,6 @@ export function CarSelector() {
                     }
                   />
                 </div>
-
               </div>
 
               {/* Second row */}
