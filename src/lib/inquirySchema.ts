@@ -3,7 +3,7 @@ import { z } from "zod";
 // Client payload schema (insert inquiry)
 export const insertInquirySchema = z.object({
   name: z.string().optional(),
-  email: z.string().email(),
+  email: z.string().email().optional(),
   phone: z.string(),
   message: z.string().optional(),
 });

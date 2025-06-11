@@ -138,7 +138,6 @@ export function Header() {
                         await submitInquiry({
                           name: callbackName,
                           phone: callbackPhone,
-                          email: "noreply@example.com",
                           message: "Обратный звонок",
                         });
                         setCallbackSent(true);
@@ -160,7 +159,7 @@ export function Header() {
                     <div>
                       <input
                         type="tel"
-                        placeholder="+7 (999) 999-99-99"
+                        placeholder="+7 (999) 000-00-00"
                         value={callbackPhone}
                         onChange={(e) => handlePhoneChange(e.target.value)}
                         className="w-full p-5 rounded-2xl bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:border-blue-400/50 focus:outline-none transition-all duration-300 text-lg placeholder:text-white/50"
