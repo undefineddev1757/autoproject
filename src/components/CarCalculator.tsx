@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { submitInquiry } from "@/lib/api";
 import { Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,6 +25,8 @@ export function CarCalculator() {
     name: "",
     phone: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const carBrands = [
     "Audi",
@@ -78,7 +81,26 @@ export function CarCalculator() {
             <div className="absolute top-6 left-6 w-20 h-20 border-l-2 border-t-2 border-blue-400/50 rounded-tl-2xl" />
             <div className="absolute bottom-6 right-6 w-20 h-20 border-r-2 border-b-2 border-purple-400/50 rounded-br-2xl" />
 
-            <form className="space-y-8 relative z-10">
+            <form
+              className="space-y-8 relative z-10"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                const message = "Запрос с формы калькулятора";
+                try {
+                  await submitInquiry({
+                    name: formData.name,
+                    phone: formData.phone,
+                    email: "noreply@example.com",
+                    message,
+                  });
+                  setIsSent(true);
+                } catch (err) {
+                  console.error(err);
+                }
+                setIsLoading(false);
+              }}
+            >
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-white/80 text-sm font-medium">
@@ -113,12 +135,23 @@ export function CarCalculator() {
               </div>
 
               <Button
+                type="submit"
+                disabled={isLoading}
                 size="lg"
-                className="group relative overflow-hidden w-full h-16 text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 hover:from-blue-500 hover:via-purple-500 hover:to-blue-500 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 border-0"
+                className="group relative overflow-hidden w-full h-16 text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 hover:from-blue-500 hover:via-purple-500 hover:to-blue-500 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 border-0 disabled:opacity-50"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-white/20 to-blue-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                <Zap className="w-6 h-6 mr-3" />
-                Отправить заявку
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
+                    Отправляем...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-6 h-6 mr-3" />
+                    Отправить заявку
+                  </>
+                )}
               </Button>
 
               <p className="text-sm text-white/60 text-center leading-relaxed">
@@ -131,6 +164,9 @@ export function CarCalculator() {
                 </a>
               </p>
             </form>
+            {isSent && (
+              <p className="text-center text-green-300 mt-4">Заявка отправлена!</p>
+            )}
           </div>
         </div>
 

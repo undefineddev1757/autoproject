@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { submitInquiry } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Mail, Phone, Send, CheckCircle, Car } from "lucide-react";
@@ -8,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 export default function ContactPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -18,12 +21,27 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    const params = Object.fromEntries(searchParams.entries());
+    let message = "";
+    if (Object.keys(params).length) {
+      message = "Интересует автомобиль со следующими параметрами:\n";
+      if (params.brand) message += `Марка: ${params.brand}\n`;
+      if (params.model) message += `Модель: ${params.model}\n`;
+      if (params.country) message += `Страна: ${params.country}\n`;
+      if (params.yearFrom) message += `Год от: ${params.yearFrom}\n`;
+      if (params.yearTo) message += `Год до: ${params.yearTo}\n`;
+      if (params.priceFrom) message += `Цена от: ${params.priceFrom}\n`;
+      if (params.priceTo) message += `Цена до: ${params.priceTo}\n`;
+    }
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      await submitInquiry({ ...formData, message });
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error(err);
+    }
 
     setIsLoading(false);
-    setIsSubmitted(true);
   };
 
   const formatPhone = (value: string) => {

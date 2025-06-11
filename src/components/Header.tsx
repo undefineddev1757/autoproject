@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Menu, X, Phone, Send, Zap } from "lucide-react";
+import { submitInquiry } from "@/lib/api";
 import { StarRating } from "@/components/ui/star-rating";
 import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,10 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [callbackName, setCallbackName] = useState("");
+  const [callbackPhone, setCallbackPhone] = useState("");
+  const [callbackLoading, setCallbackLoading] = useState(false);
+  const [callbackSent, setCallbackSent] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -108,11 +113,31 @@ export function Header() {
                   <DialogTitle className="text-3xl font-bold text-white mb-8 text-center bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
                     Заказать обратный звонок
                   </DialogTitle>
-                  <form className="space-y-6">
+                  <form
+                    className="space-y-6"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setCallbackLoading(true);
+                      try {
+                        await submitInquiry({
+                          name: callbackName,
+                          phone: callbackPhone,
+                          email: "noreply@example.com",
+                          message: "Обратный звонок",
+                        });
+                        setCallbackSent(true);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                      setCallbackLoading(false);
+                    }}
+                  >
                     <div>
                       <input
                         type="text"
                         placeholder="Ваше имя"
+                        value={callbackName}
+                        onChange={(e) => setCallbackName(e.target.value)}
                         className="w-full p-5 rounded-2xl bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:border-blue-400/50 focus:outline-none transition-all duration-300 text-lg placeholder:text-white/50"
                       />
                     </div>
@@ -120,13 +145,22 @@ export function Header() {
                       <input
                         type="tel"
                         placeholder="+7 (999) 999-99-99"
+                        value={callbackPhone}
+                        onChange={(e) => setCallbackPhone(e.target.value)}
                         className="w-full p-5 rounded-2xl bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:border-blue-400/50 focus:outline-none transition-all duration-300 text-lg placeholder:text-white/50"
                       />
                     </div>
-                    <Button className="group relative overflow-hidden w-full bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 hover:from-orange-400 hover:via-red-400 hover:to-orange-400 text-white font-semibold py-5 rounded-2xl shadow-lg border-0 text-lg">
+                    <Button
+                      type="submit"
+                      disabled={callbackLoading}
+                      className="group relative overflow-hidden w-full bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 hover:from-orange-400 hover:via-red-400 hover:to-orange-400 text-white font-semibold py-5 rounded-2xl shadow-lg border-0 text-lg disabled:opacity-50"
+                    >
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-white/20 to-orange-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                      Заказать звонок
+                      {callbackLoading ? 'Отправляем...' : 'Заказать звонок'}
                     </Button>
+                    {callbackSent && (
+                      <p className="text-center text-green-300">Заявка отправлена!</p>
+                    )}
                   </form>
                 </div>
               </DialogContent>
