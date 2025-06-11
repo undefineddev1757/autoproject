@@ -16,6 +16,21 @@ export function CarCatalog() {
     "mercedes-benz",
     "porsche",
     "land-rover",
+    "lexus",
+    "toyota",
+    "nissan",
+    "honda",
+    "hyundai",
+    "kia",
+    "mazda",
+    "subaru",
+    "ford",
+    "chevrolet",
+    "infiniti",
+    "mitsubishi",
+    "volvo",
+    "jeep",
+    "tesla",
   ];
 
   const cars = [

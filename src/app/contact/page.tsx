@@ -27,7 +27,6 @@ export default function ContactPage() {
       message = "Интересует автомобиль со следующими параметрами:\n";
       if (params.brand) message += `Марка: ${params.brand}\n`;
       if (params.model) message += `Модель: ${params.model}\n`;
-      if (params.country) message += `Страна: ${params.country}\n`;
       if (params.yearFrom) message += `Год от: ${params.yearFrom}\n`;
       if (params.yearTo) message += `Год до: ${params.yearTo}\n`;
       if (params.priceFrom) message += `Цена от: ${params.priceFrom}\n`;

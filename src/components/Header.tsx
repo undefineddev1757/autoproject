@@ -23,6 +23,22 @@ export function Header() {
   const [callbackLoading, setCallbackLoading] = useState(false);
   const [callbackSent, setCallbackSent] = useState(false);
 
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 1) return numbers;
+    if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
+    if (numbers.length <= 7)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
+    if (numbers.length <= 9)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7)}`;
+    return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7, 9)}-${numbers.slice(9, 11)}`;
+  };
+
+  const handlePhoneChange = (value: string) => {
+    const formatted = formatPhone(value);
+    setCallbackPhone(formatted);
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
     onScroll();
@@ -146,7 +162,7 @@ export function Header() {
                         type="tel"
                         placeholder="+7 (999) 999-99-99"
                         value={callbackPhone}
-                        onChange={(e) => setCallbackPhone(e.target.value)}
+                        onChange={(e) => handlePhoneChange(e.target.value)}
                         className="w-full p-5 rounded-2xl bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:border-blue-400/50 focus:outline-none transition-all duration-300 text-lg placeholder:text-white/50"
                       />
                     </div>
