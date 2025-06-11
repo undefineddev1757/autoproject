@@ -1,6 +1,6 @@
 import type { Express, Request, Response } from "express";
 import { createServer, Server } from "http";
-import { insertInquirySchema, Inquiry } from "@/lib/inquirySchema";
+import { insertInquirySchema, Inquiry } from "../src/lib/inquirySchema";
 import { sendInquiryNotification } from "./telegram";
 import { z, ZodError } from "zod";
 
