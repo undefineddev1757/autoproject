@@ -28,6 +28,22 @@ export function CarCalculator() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 1) return numbers;
+    if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
+    if (numbers.length <= 7)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
+    if (numbers.length <= 9)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7)}`;
+    return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7, 9)}-${numbers.slice(9, 11)}`;
+  };
+
+  const handlePhoneChange = (value: string) => {
+    const formatted = formatPhone(value);
+    setFormData({ ...formData, phone: formatted });
+  };
+
   const carBrands = [
     "Audi",
     "BMW",
@@ -36,6 +52,20 @@ export function CarCalculator() {
     "Land Rover",
     "Lexus",
     "Volkswagen",
+    "Toyota",
+    "Nissan",
+    "Honda",
+    "Hyundai",
+    "Kia",
+    "Mazda",
+    "Subaru",
+    "Ford",
+    "Chevrolet",
+    "Infiniti",
+    "Mitsubishi",
+    "Volvo",
+    "Jeep",
+    "Tesla",
   ];
 
   const years = Array.from({ length: 10 }, (_, i) => (2024 - i).toString());
@@ -126,9 +156,8 @@ export function CarCalculator() {
                     <Input
                       placeholder="+7 (999) 999-99-99"
                       className="h-16 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 pl-20 focus:border-blue-400/50 focus:bg-white/15 transition-all duration-300"
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
+                      onChange={(e) => handlePhoneChange(e.target.value)}
+                      value={formData.phone}
                     />
                   </div>
                 </div>

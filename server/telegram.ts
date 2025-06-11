@@ -33,8 +33,11 @@ export async function sendInquiryNotification(inquiry: Inquiry) {
 }
 
 function formatInquiryMessage(inquiry: Inquiry) {
-  const { email, phone, message, createdAt } = inquiry;
+  const { name, email, phone, message, createdAt } = inquiry;
   let formatted = `<b>🚗 Новая заявка с сайта!</b>\n\n`;
+  if (name) {
+    formatted += `<b>Имя:</b> ${name}\n`;
+  }
   formatted += `<b>Email:</b> ${email}\n`;
   formatted += `<b>Телефон:</b> ${phone}\n`;
   if (message) {

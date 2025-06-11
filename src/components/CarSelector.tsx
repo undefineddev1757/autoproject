@@ -16,7 +16,6 @@ import {
 interface FormData {
   brand: string;
   model: string;
-  country: string;
   yearFrom: string;
   yearTo: string;
   priceFrom: string;
@@ -33,9 +32,20 @@ const CAR_BRANDS = [
   "Volkswagen",
   "Toyota",
   "Nissan",
+  "Honda",
+  "Hyundai",
+  "Kia",
+  "Mazda",
+  "Subaru",
+  "Ford",
+  "Chevrolet",
+  "Infiniti",
+  "Mitsubishi",
+  "Volvo",
+  "Jeep",
+  "Tesla",
 ];
 
-const COUNTRIES = ["Япония", "Корея", "Германия", "США"];
 
 const YEARS = Array.from({ length: 20 }, (_, i) => (2024 - i).toString());
 
@@ -44,7 +54,6 @@ export function CarSelector() {
   const [formData, setFormData] = useState<FormData>({
     brand: "",
     model: "",
-    country: "",
     yearFrom: "",
     yearTo: "",
     priceFrom: "",
@@ -146,31 +155,6 @@ export function CarSelector() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-white/80 text-sm font-medium">
-                    Страна
-                  </label>
-                  <Select
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, country: value })
-                    }
-                  >
-                    <SelectTrigger className="h-14 bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white">
-                      <SelectValue placeholder="Откуда привезти" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
-                      {COUNTRIES.map((country) => (
-                        <SelectItem
-                          key={country}
-                          value={country}
-                          className="text-white hover:bg-white/10"
-                        >
-                          {country}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
 
               {/* Second row */}
@@ -276,12 +260,27 @@ export function CarSelector() {
             Популярные марки
           </h3>
           <div className="flex flex-wrap justify-center gap-6">
-            {["BMW", "Mercedes-Benz", "Audi", "Toyota", "Lexus", "Porsche"].map(
-              (brand, index) => (
-                <div
-                  key={`brand-${brand}`}
-                  className="group cursor-pointer bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-indigo-400/50 transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom duration-1000"
-                  style={{ animationDelay: `${800 + index * 100}ms` }}
+            {[
+              "BMW",
+              "Mercedes-Benz",
+              "Audi",
+              "Toyota",
+              "Lexus",
+              "Porsche",
+              "Honda",
+              "Hyundai",
+              "Kia",
+              "Mazda",
+              "Ford",
+              "Chevrolet",
+              "Volvo",
+              "Jeep",
+              "Tesla",
+            ].map((brand, index) => (
+              <div
+                key={`brand-${brand}`}
+                className="group cursor-pointer bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-indigo-400/50 transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom duration-1000"
+                style={{ animationDelay: `${800 + index * 100}ms` }}
                 >
                   <div className="text-white font-semibold text-lg group-hover:text-indigo-300 transition-colors duration-300">
                     {brand}
