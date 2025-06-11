@@ -2,12 +2,13 @@
   "name": "nextjs-shadcn",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.12.1",
   "scripts": {
     "dev": "npx next dev -H 0.0.0.0 --turbopack",
     "dev:server": "ts-node --esm -r tsconfig-paths/register ./server/index.ts",
     "build": "npx next build",
     "start": "npx next start",
-    "lint": "npx biome lint --write && npx tsc --noEmit",
+    "lint": "biome lint --write && tsc --noEmit",
     "format": "npx biome format --write"
   },
   "dependencies": {
@@ -23,7 +24,7 @@
     "react-dom": "^18.3.1",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "node-telegram-bot-api": "^0.73.0",
+    "node-telegram-bot-api": "^0.66.0",
     "zod": "^3.23.8",
     "express": "^4.19.2"
   },
