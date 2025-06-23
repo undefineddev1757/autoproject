@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Global Star Auto - Премиум автомобили из США",
-  description: "Профессиональный подбор и доставка премиум автомобилей. Полный спектр услуг по импорту авто.",
+  title: "Global Star Auto - Премиум автомобили из Японии, Кореи и Европы",
+  description:
+    "Профессиональный подбор и доставка премиум автомобилей из Японии, Южной Кореи и Европы. Полный спектр услуг по импорту авто.",
 };
 
 export default function RootLayout({
