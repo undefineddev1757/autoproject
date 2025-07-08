@@ -28,17 +28,6 @@ export function HeroSection() {
     <section className="relative overflow-hidden min-h-screen flex items-center pt-20 sm:pt-32 pb-16 sm:pb-20">
       {/* Advanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        {/* BMW M4 CS Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-          style={{
-            backgroundImage:
-              "url('/uploads/bmw_m_wallpaper_m4_cs_front_desktop.jpg.asset.1736439812863(1).png')",
-          }}
-        />
-
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-purple-900/70 to-slate-900/80" />
 
         {/* Animated gradient orbs */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
@@ -74,7 +63,7 @@ export function HeroSection() {
 
             <div className="space-y-4 sm:space-y-6">
               <p className="text-lg sm:text-xl lg:text-2xl text-blue-100/80 font-light leading-relaxed">
-                С аукционов Японии, Кореи или Европы
+                Напрямую из Японии
               </p>
               <div className="flex items-center justify-center space-x-4">
                 <div className="h-1 w-12 sm:w-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />

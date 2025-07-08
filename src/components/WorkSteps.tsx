@@ -37,12 +37,12 @@ export function WorkSteps() {
     },
     {
       number: "03",
-      title: "Покупка и оформление",
+      title: "Покупка и оформление", 
       description:
-        "Покупаем автомобиль в Европе, оформляем все необходимые документы для вывоза.",
+        "Покупаем автомобиль в Японии, оформляем все необходимые документы для вывоза.",
       icon: <CreditCard className="w-8 h-8" />,
       details: [
-        "Покупка в автосалоне",
+        "Участие в японских аукционах",
         "Оформление документов",
         "Таможенное оформление",
         "Страхование на время доставки",
@@ -182,13 +182,13 @@ export function WorkSteps() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+74996477787"
+                href="tel:+79152031467"
                 className="px-8 py-3 saraev-blue text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
               >
                 Позвонить сейчас
               </a>
               <a
-                href="https://wa.me/79654128726"
+                href="https://wa.me/79152031467"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"

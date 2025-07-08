@@ -10,7 +10,7 @@ export function SavingsSection() {
       model: "Mercedes-Benz G63",
       year: "2024",
       russiaPrice: "38 500 000",
-      europePrice: "33 750 000",
+      japanPrice: "33 750 000",
       savings: "4 750 000",
       savingsPercent: "12,3%",
       image: "🚙",
@@ -19,7 +19,7 @@ export function SavingsSection() {
       model: "BMW X6M Competition",
       year: "2021",
       russiaPrice: "15 640 000",
-      europePrice: "14 749 000",
+      japanPrice: "14 749 000",
       savings: "891 000",
       savingsPercent: "5,7%",
       image: "🚗",
@@ -28,7 +28,7 @@ export function SavingsSection() {
       model: "Porsche Macan S",
       year: "2020",
       russiaPrice: "8 565 000",
-      europePrice: "7 265 000",
+      japanPrice: "7 265 000",
       savings: "1 300 000",
       savingsPercent: "15,2%",
       image: "🏎️",
@@ -40,11 +40,11 @@ export function SavingsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            Экономия при покупке в Европе
+            Экономия при покупке в Японии
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Реальные примеры экономии наших клиентов при покупке автомобилей
-            премиум-класса в Европе
+            премиум-класса в Японии
           </p>
         </div>
 
@@ -88,11 +88,11 @@ export function SavingsSection() {
                       <div className="flex items-center space-x-2">
                         <Euro className="w-4 h-4 text-green-600" />
                         <span className="text-sm font-medium text-gray-700">
-                          Цена в Европе:
+                          Цена в Японии:
                         </span>
                       </div>
                       <span className="font-semibold text-green-600">
-                        {car.europePrice} ₽
+                        {car.japanPrice} ₽
                       </span>
                     </div>
 

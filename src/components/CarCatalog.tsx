@@ -145,7 +145,7 @@ export function CarCatalog() {
             Каталог автомобилей
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Премиальные автомобили из Европы с проверенной историей и полным
+            Премиальные автомобили из Японии с проверенной историей и полным
             пакетом документов
           </p>
         </div>
@@ -271,7 +271,7 @@ export function CarCatalog() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://t.me/saraev_catalog"
+              href="https://t.me/gsat_ru"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
@@ -279,7 +279,7 @@ export function CarCatalog() {
               Написать в Telegram
             </a>
             <a
-              href="https://wa.me/79654128726"
+              href="https://wa.me/79152031467"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"

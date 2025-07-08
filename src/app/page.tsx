@@ -5,6 +5,7 @@ import { WorkSteps } from "@/components/WorkSteps";
 import { GuaranteeSection } from "@/components/GuaranteeSection";
 import { FAQSection } from "@/components/FAQSection";
 import { CarCalculator } from "@/components/CarCalculator";
+import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <GuaranteeSection />
         <FAQSection />
         <CarCalculator />
+        <ContactSection />
       </main>
       <Footer />
     </div>

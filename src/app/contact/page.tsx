@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { submitInquiry } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Mail, Phone, Send, CheckCircle, Car } from "lucide-react";
+import { ArrowLeft, Mail, Phone, CheckCircle, Car } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 function ContactPageContent() {
@@ -236,7 +236,11 @@ function ContactPageContent() {
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3" />
+                        <img 
+                  src="/uploads/tg.png" 
+                  alt="Telegram" 
+                  className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3" 
+                />
                         <span className="font-semibold">Отправить заявку</span>
                       </>
                     )}

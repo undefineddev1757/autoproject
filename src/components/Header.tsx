@@ -9,7 +9,7 @@ import {
   DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Menu, X, Phone, Send, Zap } from "lucide-react";
+import { Menu, X, Phone, Zap } from "lucide-react";
 import { submitInquiry } from "@/lib/api";
 import { StarRating } from "@/components/ui/star-rating";
 import { Logo } from "@/components/ui/logo";
@@ -56,7 +56,7 @@ export function Header() {
       )}
     >
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between py-5">
+        <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <Link href="/">
             <Logo size="xl" variant="light" />
@@ -84,34 +84,40 @@ export function Header() {
           <div className="flex items-center space-x-4">
             {/* Phone */}
             <a
-              href="tel:+74996477787"
+              href="tel:+79152031467"
               className="hidden lg:flex items-center space-x-3 text-white hover:text-blue-300 transition-all duration-300 group bg-white/5 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10 hover:border-blue-400/50"
             >
               <Phone className="w-6 h-6 group-hover:animate-pulse" />
               <span className="font-bold text-xl tracking-wide">
-                +7 (499) 647-77-87
+                +7 (915) 203-14-67
               </span>
             </a>
 
             {/* Social buttons */}
             <div className="hidden md:flex items-center space-x-3">
               <a
-                href="https://t.me/globalstarauto"
+                href="https://t.me/gsat_ru"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-blue-500/50"
               >
-                <Send className="w-7 h-7 text-white group-hover:scale-110 transition-transform duration-300" />
+                <img 
+                  src="/uploads/tg.png" 
+                  alt="Telegram" 
+                  className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" 
+                />
               </a>
               <a
-                href="https://wa.me/79654128726"
+                href="https://wa.me/79152031467"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-500/50"
               >
-                <span className="text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                  W
-                </span>
+                <img 
+                  src="/uploads/whatsapp.png" 
+                  alt="WhatsApp" 
+                  className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" 
+                />
               </a>
             </div>
 
@@ -184,7 +190,7 @@ export function Header() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-4 text-gray-300 hover:text-white transition-colors bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+              className="lg:hidden p-4 text-gray-300 hover:text-white transition-colors bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
             >
               {isMenuOpen ? (
                 <X className="w-7 h-7" />
@@ -216,27 +222,35 @@ export function Header() {
 
               <div className="flex items-center justify-between pt-6 border-t border-white/10 px-6">
                 <a
-                  href="tel:+74996477787"
+                  href="tel:+79152031467"
                   className="text-white font-bold text-xl"
                 >
-                  +7 (499) 647-77-87
+                  +7 (915) 203-14-67
                 </a>
                 <div className="flex space-x-3">
                   <a
-                    href="https://t.me/globalstarauto"
+                    href="https://t.me/gsat_ru"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center shadow-lg"
                   >
-                    <Send className="w-7 h-7 text-white" />
+                    <img 
+                      src="/uploads/tg.png" 
+                      alt="Telegram" 
+                      className="w-7 h-7" 
+                    />
                   </a>
                   <a
-                    href="https://wa.me/79654128726"
+                    href="https://wa.me/79152031467"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center shadow-lg"
                   >
-                    <span className="text-white font-bold text-xl">W</span>
+                    <img 
+                      src="/uploads/whatsapp.png" 
+                      alt="WhatsApp" 
+                      className="w-7 h-7" 
+                    />
                   </a>
                 </div>
               </div>

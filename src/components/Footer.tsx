@@ -1,6 +1,6 @@
 "use client";
 
-import { Send, MessageCircle } from "lucide-react";
+
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -18,27 +18,35 @@ export function Footer() {
           {/* Contact & Social */}
           <div className="flex items-center space-x-6">
             <a
-              href="tel:+74996477787"
+              href="tel:+79152031467"
               className="text-white hover:text-blue-400 font-medium transition-colors duration-300"
             >
-              8 499 647-77-87
+              +7 (915) 203-14-67
             </a>
             <div className="flex space-x-3">
               <a
-                href="https://t.me/globalstarauto"
+                href="https://t.me/gsat_ru"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-8 h-8 rounded-xl bg-blue-500/20 hover:bg-blue-500 flex items-center justify-center transition-all duration-300"
               >
-                <Send className="w-4 h-4 text-blue-400 group-hover:text-white" />
+                <img 
+                  src="/uploads/tg.png" 
+                  alt="Telegram" 
+                  className="w-4 h-4" 
+                />
               </a>
               <a
-                href="https://wa.me/79654128726"
+                href="https://wa.me/79152031467"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-8 h-8 rounded-xl bg-green-500/20 hover:bg-green-500 flex items-center justify-center transition-all duration-300"
               >
-                <MessageCircle className="w-4 h-4 text-green-400 group-hover:text-white" />
+                <img 
+                  src="/uploads/whatsapp.png" 
+                  alt="WhatsApp" 
+                  className="w-4 h-4" 
+                />
               </a>
             </div>
           </div>

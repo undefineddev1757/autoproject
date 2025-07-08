@@ -1,6 +1,20 @@
-import { Phone, MessageCircle, Mail } from "lucide-react";
+"use client";
+
+import { Phone, Mail } from "lucide-react";
+import { useState } from "react";
 
 export function ContactSection() {
+  const [copiedText, setCopiedText] = useState<string | null>(null);
+
+  const copyToClipboard = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedText(label);
+      setTimeout(() => setCopiedText(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
   return (
     <section className="relative overflow-hidden py-16" id="contacts">
       {/* Background with gradient */}
@@ -30,87 +44,137 @@ export function ContactSection() {
         <div className="max-w-4xl mx-auto">
           {/* Contact methods */}
           <div className="grid md:grid-cols-4 gap-8">
-            <a
-              href="https://t.me/globalstarauto"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center"
-            >
+            <div className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center">
               <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-blue-400/50 rounded-tr-2xl" />
 
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 group-hover:scale-110 transition-all duration-500">
-                <MessageCircle className="w-10 h-10 text-white" />
-              </div>
+              <a
+                href="https://t.me/gsat_ru"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 group-hover:scale-110 transition-all duration-500">
+                  <img 
+                    src="/uploads/tg.png" 
+                    alt="Telegram" 
+                    className="w-10 h-10" 
+                  />
+                </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors duration-300">
-                Telegram
-              </h3>
-              <p className="text-blue-200/80 text-lg">@globalstarauto</p>
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors duration-300">
+                  Telegram
+                </h3>
+              </a>
+              
+              <p 
+                className="text-blue-200/80 text-sm cursor-pointer hover:text-blue-100 transition-colors"
+                onClick={() => copyToClipboard('@gsat_ru', 'Telegram')}
+              >
+                @gsat_ru
+              </p>
+              {copiedText === 'Telegram' && (
+                <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>
+              )}
               <p className="text-sm text-blue-300/60 mt-2">
                 Быстрые ответы 24/7
               </p>
-            </a>
+            </div>
 
-            <a
-              href="https://wa.me/79654128726"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center"
-            >
+            <div className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center">
               <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-green-400/50 rounded-tr-2xl" />
 
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-green-500 to-green-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-green-500/50 group-hover:scale-110 transition-all duration-500">
-                <MessageCircle className="w-10 h-10 text-white" />
-              </div>
+              <a
+                href="https://wa.me/79152031467"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-green-500 to-green-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-green-500/50 group-hover:scale-110 transition-all duration-500">
+                  <img 
+                    src="/uploads/whatsapp.png" 
+                    alt="WhatsApp" 
+                    className="w-10 h-10" 
+                  />
+                </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors duration-300">
-                WhatsApp
-              </h3>
-              <p className="text-green-200/80 text-lg">+7 (965) 412-87-26</p>
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors duration-300">
+                  WhatsApp
+                </h3>
+              </a>
+              
+              <p 
+                className="text-green-200/80 text-sm cursor-pointer hover:text-green-100 transition-colors"
+                onClick={() => copyToClipboard('+7 (915) 203-14-67', 'WhatsApp')}
+              >
+                +7 (915) 203-14-67
+              </p>
+              {copiedText === 'WhatsApp' && (
+                <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>
+              )}
               <p className="text-sm text-green-300/60 mt-2">
                 Онлайн консультации
               </p>
-            </a>
+            </div>
 
-            <a
-              href="tel:+74996477787"
-              className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center"
-            >
+            <div className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center">
               <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-purple-400/50 rounded-tr-2xl" />
 
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 group-hover:scale-110 transition-all duration-500">
-                <Phone className="w-10 h-10 text-white" />
-              </div>
+              <a
+                href="tel:+79152031467"
+                className="block"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 group-hover:scale-110 transition-all duration-500">
+                  <Phone className="w-10 h-10 text-white" />
+                </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
-                Телефон
-              </h3>
-              <p className="text-purple-200/80 text-lg">+7 (499) 647-77-87</p>
-              <p className="text-sm text-purple-300/60 mt-2">
-                Звонки с 9:00 до 21:00
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
+                  Телефон
+                </h3>
+              </a>
+              
+              <p 
+                className="text-purple-200/80 text-sm cursor-pointer hover:text-purple-100 transition-colors"
+                onClick={() => copyToClipboard('+7 (915) 203-14-67', 'Телефон')}
+              >
+                +7 (915) 203-14-67
               </p>
-            </a>
+              {copiedText === 'Телефон' && (
+                <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>
+              )}
+           
+            </div>
 
-            <a
-              href="mailto:info@globalstarauto.ru"
-              className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center"
-            >
+            <div className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center">
               <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-yellow-400/50 rounded-tr-2xl" />
 
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-yellow-500/50 group-hover:scale-110 transition-all duration-500">
-                <Mail className="w-10 h-10 text-white" />
-              </div>
+              <a
+                href="mailto:support@globalstarauto.ru"
+                className="block"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-yellow-500/50 group-hover:scale-110 transition-all duration-500">
+                  <Mail className="w-10 h-10 text-white" />
+                </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                Email
-              </h3>
-              <p className="text-yellow-200/80 text-lg">info@globalstarauto.ru</p>
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                  Email
+                </h3>
+              </a>
+              
+              <p 
+                className="text-yellow-200/80 text-xs cursor-pointer hover:text-yellow-100 transition-colors break-all"
+                onClick={() => copyToClipboard('support@globalstarauto.ru', 'Email')}
+              >
+                support@globalstarauto.ru
+              </p>
+              {copiedText === 'Email' && (
+                <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>
+              )}
               <p className="text-sm text-yellow-300/60 mt-2">Ответ в течение дня</p>
-            </a>
+            </div>
           </div>
 
           {/* Office address */}
-          <div className="mt-16 text-center">
+          {/* <div className="mt-16 text-center">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="text-4xl mb-4">📍</div>
               <h4 className="text-xl font-bold text-white mb-2">
@@ -120,7 +184,7 @@ export function ContactSection() {
                 ул. Краснопролетарская, д. 17, стр. 4, офис 082
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
