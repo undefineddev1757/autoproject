@@ -188,7 +188,7 @@ export function WorkSteps() {
                 Позвонить сейчас
               </a>
               <a
-                href="https://wa.me/79152031467"
+                href="https://wa.me/79823258220"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"

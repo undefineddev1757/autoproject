@@ -108,7 +108,7 @@ export function Header() {
                 />
               </a>
               <a
-                href="https://wa.me/79152031467"
+                href="https://wa.me/79823258220"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-500/50"
@@ -241,7 +241,7 @@ export function Header() {
                     />
                   </a>
                   <a
-                    href="https://wa.me/79152031467"
+                    href="https://wa.me/79823258220"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center shadow-lg"

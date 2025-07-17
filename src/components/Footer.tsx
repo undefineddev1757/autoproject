@@ -37,7 +37,7 @@ export function Footer() {
                 />
               </a>
               <a
-                href="https://wa.me/79152031467"
+                href="https://wa.me/79823258220"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-8 h-8 rounded-xl bg-green-500/20 hover:bg-green-500 flex items-center justify-center transition-all duration-300"

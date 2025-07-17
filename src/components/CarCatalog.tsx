@@ -279,7 +279,7 @@ export function CarCatalog() {
               Написать в Telegram
             </a>
             <a
-              href="https://wa.me/79152031467"
+              href="https://wa.me/79823258220"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"

@@ -84,7 +84,7 @@ export function ContactSection() {
               <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-green-400/50 rounded-tr-2xl" />
 
               <a
-                href="https://wa.me/79152031467"
+                href="https://wa.me/79823258220"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block"
