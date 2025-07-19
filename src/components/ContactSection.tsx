@@ -104,9 +104,9 @@ export function ContactSection() {
               
               <p 
                 className="text-green-200/80 text-sm cursor-pointer hover:text-green-100 transition-colors"
-                onClick={() => copyToClipboard('+7 (901) 078-40-98', 'WhatsApp')}
+                onClick={() => copyToClipboard('+7 (915) 203-14-67', 'WhatsApp')}
               >
-                +7 (901) 078-40-98
+                +7 (915) 203-14-67
               </p>
               {copiedText === 'WhatsApp' && (
                 <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>
