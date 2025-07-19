@@ -18,10 +18,10 @@ export function Footer() {
           {/* Contact & Social */}
           <div className="flex items-center space-x-6">
             <a
-              href="tel:+79152031467"
+              href="tel:+79010784098"
               className="text-white hover:text-blue-400 font-medium transition-colors duration-300"
             >
-              +7 (915) 203-14-67
+              +7 (901) 078-40-98
             </a>
             <div className="flex space-x-3">
               <a

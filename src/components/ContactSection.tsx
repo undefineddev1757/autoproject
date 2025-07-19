@@ -104,9 +104,9 @@ export function ContactSection() {
               
               <p 
                 className="text-green-200/80 text-sm cursor-pointer hover:text-green-100 transition-colors"
-                onClick={() => copyToClipboard('+7 (915) 203-14-67', 'WhatsApp')}
+                onClick={() => copyToClipboard('+7 (901) 078-40-98', 'WhatsApp')}
               >
-                +7 (915) 203-14-67
+                +7 (901) 078-40-98
               </p>
               {copiedText === 'WhatsApp' && (
                 <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>
@@ -120,7 +120,7 @@ export function ContactSection() {
               <div className="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-purple-400/50 rounded-tr-2xl" />
 
               <a
-                href="tel:+79152031467"
+                href="tel:+79010784098"
                 className="block"
               >
                 <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-purple-500/50 group-hover:scale-110 transition-all duration-500">
@@ -134,9 +134,9 @@ export function ContactSection() {
               
               <p 
                 className="text-purple-200/80 text-sm cursor-pointer hover:text-purple-100 transition-colors"
-                onClick={() => copyToClipboard('+7 (915) 203-14-67', 'Телефон')}
+                onClick={() => copyToClipboard('+7 (901) 078-40-98', 'Телефон')}
               >
-                +7 (915) 203-14-67
+                +7 (901) 078-40-98
               </p>
               {copiedText === 'Телефон' && (
                 <p className="text-green-400 text-xs mt-1 animate-pulse">Скопировано!</p>

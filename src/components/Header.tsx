@@ -84,12 +84,12 @@ export function Header() {
           <div className="flex items-center space-x-4">
             {/* Phone */}
             <a
-              href="tel:+79152031467"
+              href="tel:+79010784098"
               className="hidden lg:flex items-center space-x-3 text-white hover:text-blue-300 transition-all duration-300 group bg-white/5 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10 hover:border-blue-400/50"
             >
               <Phone className="w-6 h-6 group-hover:animate-pulse" />
               <span className="font-bold text-xl tracking-wide">
-                +7 (915) 203-14-67
+                +7 (901) 078-40-98
               </span>
             </a>
 
@@ -222,10 +222,10 @@ export function Header() {
 
               <div className="flex items-center justify-between pt-6 border-t border-white/10 px-6">
                 <a
-                  href="tel:+79152031467"
+                  href="tel:+79010784098"
                   className="text-white font-bold text-xl"
                 >
-                  +7 (915) 203-14-67
+                  +7 (901) 078-40-98
                 </a>
                 <div className="flex space-x-3">
                   <a
