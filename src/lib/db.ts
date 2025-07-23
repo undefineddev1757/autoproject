@@ -1,6 +1,6 @@
 import type { Database } from "sql.js";
 import type { SqlJsStatic } from "sql.js";
-import fs from "fs";
+import fs from "node:fs";
 import path from "node:path";
 
 export type TableName =
@@ -45,10 +45,13 @@ async function getDb(): Promise<Database> {
   if (db) return db;
 
   // Initialise sql.js (works for both ESM and CommonJS builds)
-  const initModule = await import("sql.js");
-  // Some bundlers export function as default, другие — сам объект; поддержим оба варианта
+  // Use the ESM build to avoid CommonJS globals errors in Node
+  const initModule = await import("sql.js/dist/sql-wasm.js");
+  // Some bundlers export function as default, others export the object itself
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  const initSqlJs: any = (initModule as any).default || initModule;
+  const initSqlJs = (
+    initModule as { default: (config?: unknown) => Promise<SqlJsStatic> }
+  ).default;
   const SQL: SqlJsStatic = await initSqlJs({
       locateFile: (file: string) =>
         path.join(process.cwd(), "node_modules/sql.js/dist", file),
