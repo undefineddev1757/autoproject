@@ -1,0 +1,8 @@
+# Ignore dependencies installed locally
+node_modules
+
+# Ignore VCS data
+.git
+
+# Optional: ignore log files
+*.log 

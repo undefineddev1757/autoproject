@@ -22,12 +22,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const inquiryData = insertInquirySchema.parse(body);
 
-    if (isDuplicate(inquiryData.email, inquiryData.phone)) {
+    if (await isDuplicate(inquiryData.email, inquiryData.phone)) {
       return NextResponse.json({ message: "duplicate" }, { status: 409 });
     }
 
     const table = getTableForMessage(inquiryData.message);
-    const insertResult = insertInquiry(table, inquiryData);
+    const insertResult = await insertInquiry(table, inquiryData);
 
     const inquiry: Inquiry = {
       ...inquiryData,

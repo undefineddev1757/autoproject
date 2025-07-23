@@ -1,4 +1,6 @@
-import Database from "better-sqlite3";
+import type { Database } from "sql.js";
+import type { SqlJsStatic } from "sql.js";
+import fs from "fs";
 import path from "node:path";
 
 export type TableName =
@@ -7,9 +9,11 @@ export type TableName =
   | "callback_inquiries";
 
 const dbPath = path.join(process.cwd(), "database.sqlite");
-const db = new Database(dbPath);
 
-// Initialize tables
+// SQL.js database instance (initialized asynchronously)
+let db: Database | null = null;
+
+// DDL statements for all tables in the application
 const tables: Record<TableName, string> = {
   contact_inquiries: `CREATE TABLE IF NOT EXISTS contact_inquiries (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,8 +41,29 @@ const tables: Record<TableName, string> = {
   );`,
 };
 
-for (const sql of Object.values(tables)) {
-  db.exec(sql);
+async function getDb(): Promise<Database> {
+  if (db) return db;
+
+  // Initialise sql.js (works for both ESM and CommonJS builds)
+  const initModule = await import("sql.js");
+  // Some bundlers export function as default, другие — сам объект; поддержим оба варианта
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  const initSqlJs: any = (initModule as any).default || initModule;
+  const SQL: SqlJsStatic = await initSqlJs({
+      locateFile: (file: string) =>
+        path.join(process.cwd(), "node_modules/sql.js/dist", file),
+  });
+  const filebuffer = fs.existsSync(dbPath) ? fs.readFileSync(dbPath) : undefined;
+  db = filebuffer ? new SQL.Database(filebuffer) : new SQL.Database();
+  const database = db as Database;
+
+  // Create tables if they do not exist
+  for (const sql of Object.values(tables)) {
+    database.exec(sql);
+  }
+
+  console.log("SQLite (sql.js) initialised successfully");
+  return database;
 }
 
 export function getTableForMessage(message?: string): TableName {
@@ -47,38 +72,47 @@ export function getTableForMessage(message?: string): TableName {
   return "contact_inquiries";
 }
 
-export function isDuplicate(email?: string, phone?: string): boolean {
+export async function isDuplicate(
+  email?: string,
+  phone?: string,
+): Promise<boolean> {
   if (!email && !phone) return false;
+  const db = await getDb();
   const tbls: TableName[] = [
     "contact_inquiries",
     "calculator_inquiries",
     "callback_inquiries",
   ];
   for (const t of tbls) {
-    const row = db
-      .prepare(
-        `SELECT 1 FROM ${t} WHERE (phone = ? AND phone != '') OR (email = ? AND email != '') LIMIT 1`,
-      )
-      .get(phone ?? "", email ?? "");
-    if (row) return true;
+    const statement = db.prepare(
+      `SELECT 1 FROM ${t} WHERE (phone = ? AND phone != '') OR (email = ? AND email != '') LIMIT 1`,
+    );
+    const result = statement.getAsObject([phone ?? "", email ?? ""]);
+    if (result["1"]) return true;
   }
   return false;
 }
 
-export function insertInquiry(
+export async function insertInquiry(
   table: TableName,
   data: { name?: string; email?: string; phone: string; message?: string },
-) {
+): Promise<{ id: number; createdAt: Date }> {
+  const db = await getDb();
   const stmt = db.prepare(
     `INSERT INTO ${table} (name, email, phone, message) VALUES (?, ?, ?, ?)`,
   );
-  const info = stmt.run(
+  stmt.run([
     data.name ?? null,
     data.email ?? null,
     data.phone,
     data.message ?? null,
-  );
-  return { id: info.lastInsertRowid as number, createdAt: new Date() };
+  ]);
+  const idStmt = db.prepare("SELECT last_insert_rowid() as id;");
+  const res = idStmt.getAsObject();
+  return {
+    id: Number(res.id),
+    createdAt: new Date(),
+  };
 }
 
-export default db;
+export default getDb;

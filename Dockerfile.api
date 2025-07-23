@@ -1,14 +1,22 @@
-FROM node:20-alpine
+FROM node:20
+
+RUN apt-get update && \
+    apt-get install -y python3 build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-COPY package.json package-lock.json* pnpm-lock.yaml* ./
-RUN corepack enable \
-    && corepack prepare pnpm@latest --activate \
-    && pnpm install --no-frozen-lockfile
+COPY package.json pnpm-lock.yaml ./
+
+RUN corepack enable && \
+    corepack prepare pnpm@latest --activate && \
+    pnpm config set node-linker hoisted && \
+    pnpm install --no-frozen-lockfile --unsafe-perm
 
 COPY . .
+
 EXPOSE 5000
 CMD ["sh", "-c", "pnpm run dev:server"]

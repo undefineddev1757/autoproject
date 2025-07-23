@@ -14,12 +14,12 @@ export function registerRoutes(app: Express): Server {
     try {
       const data = insertInquirySchema.parse(req.body);
 
-      if (isDuplicate(data.email, data.phone)) {
+      if (await isDuplicate(data.email, data.phone)) {
         return res.status(409).json({ message: "duplicate" });
       }
 
       const table = getTableForMessage(data.message);
-      const insertResult = insertInquiry(table, data);
+      const insertResult = await insertInquiry(table, data);
 
       const inquiry: Inquiry = {
         ...data,
