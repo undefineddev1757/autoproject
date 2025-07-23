@@ -27,6 +27,7 @@ export function CarCalculator() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, "");
@@ -144,7 +145,8 @@ export function CarCalculator() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 setIsLoading(true);
-                const message = "Запрос с формы \"Остались вопросы\"";
+                setError(null);
+                const message = 'Запрос с формы "Остались вопросы"';
                 try {
                   await submitInquiry({
                     name: formData.name,
@@ -153,6 +155,13 @@ export function CarCalculator() {
                   });
                   setIsSent(true);
                 } catch (err) {
+                  if (err instanceof Error && err.message === "duplicate") {
+                    setError(
+                      "Заявка с таким телефоном или почтой уже была отправлена",
+                    );
+                  } else {
+                    setError("Не удалось отправить заявку, попробуйте позже");
+                  }
                   console.error(err);
                 }
                 setIsLoading(false);
@@ -220,8 +229,11 @@ export function CarCalculator() {
                 </a>
               </p>
             </form>
+            {error && <p className="text-red-400 text-center mt-4">{error}</p>}
             {isSent && (
-              <p className="text-center text-green-300 mt-4">Заявка отправлена!</p>
+              <p className="text-center text-green-300 mt-4">
+                Заявка отправлена!
+              </p>
             )}
           </div>
         </div>

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import TelegramBot from "node-telegram-bot-api";
 import { insertInquirySchema, type Inquiry } from "@/lib/inquirySchema";
 import { z } from "zod";
+import { getTableForMessage, insertInquiry, isDuplicate } from "@/lib/db";
 
 // Reuse one bot instance per environment
 let bot: TelegramBot | null = null;
@@ -21,10 +22,17 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const inquiryData = insertInquirySchema.parse(body);
 
+    if (isDuplicate(inquiryData.email, inquiryData.phone)) {
+      return NextResponse.json({ message: "duplicate" }, { status: 409 });
+    }
+
+    const table = getTableForMessage(inquiryData.message);
+    const insertResult = insertInquiry(table, inquiryData);
+
     const inquiry: Inquiry = {
       ...inquiryData,
-      id: Date.now(),
-      createdAt: new Date(),
+      id: insertResult.id,
+      createdAt: insertResult.createdAt,
     };
 
     // Send Telegram notification if credentials present
@@ -41,7 +49,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: error.message }, { status: 400 });
     }
     console.error("Failed to create inquiry", error);
-    return NextResponse.json({ message: "Failed to create inquiry" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Failed to create inquiry" },
+      { status: 500 },
+    );
   }
 }
 

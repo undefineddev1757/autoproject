@@ -17,10 +17,12 @@ function ContactPageContent() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(null);
     const params = Object.fromEntries(searchParams.entries());
     let message = "";
     if (Object.keys(params).length) {
@@ -37,6 +39,11 @@ function ContactPageContent() {
       await submitInquiry({ ...formData, message });
       setIsSubmitted(true);
     } catch (err) {
+      if (err instanceof Error && err.message === "duplicate") {
+        setError("Заявка с таким телефоном или почтой уже была отправлена");
+      } else {
+        setError("Не удалось отправить заявку, попробуйте позже");
+      }
       console.error(err);
     }
 
@@ -44,11 +51,13 @@ function ContactPageContent() {
   };
 
   const formatPhone = (value: string) => {
-    const numbers = value.replace(/\D/g, '');
+    const numbers = value.replace(/\D/g, "");
     if (numbers.length <= 1) return numbers;
     if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
-    if (numbers.length <= 7) return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
-    if (numbers.length <= 9) return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7)}`;
+    if (numbers.length <= 7)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
+    if (numbers.length <= 9)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7)}`;
     return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7, 9)}-${numbers.slice(9, 11)}`;
   };
 
@@ -77,7 +86,8 @@ function ContactPageContent() {
             </h1>
 
             <p className="text-xl text-white/80 mb-8 leading-relaxed">
-              Мы получили ваш запрос и свяжемся с вами в течение 30 минут для обсуждения деталей подбора автомобиля.
+              Мы получили ваш запрос и свяжемся с вами в течение 30 минут для
+              обсуждения деталей подбора автомобиля.
             </p>
 
             <div className="space-y-4 mb-8">
@@ -159,7 +169,8 @@ function ContactPageContent() {
                 </h1>
 
                 <p className="text-base sm:text-lg md:text-xl text-indigo-100/80 leading-relaxed px-4">
-                  Мы свяжемся с вами в течение 30 минут и поможем найти идеальный автомобиль
+                  Мы свяжемся с вами в течение 30 минут и поможем найти
+                  идеальный автомобиль
                 </p>
               </div>
 
@@ -176,7 +187,9 @@ function ContactPageContent() {
                       required
                       placeholder="your.email@example.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       className="h-14 sm:h-16 text-base sm:text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-xl sm:rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300 touch-manipulation"
                     />
                   </div>
@@ -205,15 +218,21 @@ function ContactPageContent() {
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-white/70">
                       <div className="flex flex-col items-center">
-                        <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold mb-2">1</div>
+                        <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold mb-2">
+                          1
+                        </div>
                         <span>Звонок менеджера</span>
                       </div>
                       <div className="flex flex-col items-center">
-                        <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 font-bold mb-2">2</div>
+                        <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 font-bold mb-2">
+                          2
+                        </div>
                         <span>Подбор вариантов</span>
                       </div>
                       <div className="flex flex-col items-center">
-                        <div className="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold mb-2">3</div>
+                        <div className="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold mb-2">
+                          3
+                        </div>
                         <span>Участие в торгах</span>
                       </div>
                     </div>
@@ -232,20 +251,25 @@ function ContactPageContent() {
                     {isLoading ? (
                       <>
                         <div className="w-5 sm:w-6 h-5 sm:h-6 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2 sm:mr-3" />
-                        <span className="font-semibold">Отправляем заявку...</span>
+                        <span className="font-semibold">
+                          Отправляем заявку...
+                        </span>
                       </>
                     ) : (
                       <>
-                        <img 
-                  src="/uploads/tg.png" 
-                  alt="Telegram" 
-                  className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3" 
-                />
+                        <img
+                          src="/uploads/tg.png"
+                          alt="Telegram"
+                          className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3"
+                        />
                         <span className="font-semibold">Отправить заявку</span>
                       </>
                     )}
                   </Button>
                 </div>
+                {error && (
+                  <p className="text-red-400 text-center mt-4">{error}</p>
+                )}
               </form>
 
               {/* Privacy notice */}
@@ -271,13 +295,15 @@ function ContactPageContent() {
 
 export default function ContactPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
-        <div className="text-white text-xl">Загрузка...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 flex items-center justify-center relative overflow-hidden">
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
+          <div className="text-white text-xl">Загрузка...</div>
+        </div>
+      }
+    >
       <ContactPageContent />
     </Suspense>
   );

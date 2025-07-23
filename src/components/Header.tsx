@@ -22,6 +22,7 @@ export function Header() {
   const [callbackPhone, setCallbackPhone] = useState("");
   const [callbackLoading, setCallbackLoading] = useState(false);
   const [callbackSent, setCallbackSent] = useState(false);
+  const [callbackError, setCallbackError] = useState<string | null>(null);
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, "");
@@ -101,10 +102,10 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-blue-500/50"
               >
-                <img 
-                  src="/uploads/tg.png" 
-                  alt="Telegram" 
-                  className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" 
+                <img
+                  src="/uploads/tg.png"
+                  alt="Telegram"
+                  className="w-7 h-7 group-hover:scale-110 transition-transform duration-300"
                 />
               </a>
               <a
@@ -113,10 +114,10 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="group w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-500/50"
               >
-                <img 
-                  src="/uploads/whatsapp.png" 
-                  alt="WhatsApp" 
-                  className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" 
+                <img
+                  src="/uploads/whatsapp.png"
+                  alt="WhatsApp"
+                  className="w-7 h-7 group-hover:scale-110 transition-transform duration-300"
                 />
               </a>
             </div>
@@ -140,6 +141,7 @@ export function Header() {
                     onSubmit={async (e) => {
                       e.preventDefault();
                       setCallbackLoading(true);
+                      setCallbackError(null);
                       try {
                         await submitInquiry({
                           name: callbackName,
@@ -148,6 +150,18 @@ export function Header() {
                         });
                         setCallbackSent(true);
                       } catch (err) {
+                        if (
+                          err instanceof Error &&
+                          err.message === "duplicate"
+                        ) {
+                          setCallbackError(
+                            "Заявка с таким телефоном или почтой уже была отправлена",
+                          );
+                        } else {
+                          setCallbackError(
+                            "Не удалось отправить заявку, попробуйте позже",
+                          );
+                        }
                         console.error(err);
                       }
                       setCallbackLoading(false);
@@ -177,10 +191,17 @@ export function Header() {
                       className="group relative overflow-hidden w-full bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 hover:from-orange-400 hover:via-red-400 hover:to-orange-400 text-white font-semibold py-5 rounded-2xl shadow-lg border-0 text-lg disabled:opacity-50"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-white/20 to-orange-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                      {callbackLoading ? 'Отправляем...' : 'Заказать звонок'}
+                      {callbackLoading ? "Отправляем..." : "Заказать звонок"}
                     </Button>
+                    {callbackError && (
+                      <p className="text-red-400 text-center mt-4">
+                        {callbackError}
+                      </p>
+                    )}
                     {callbackSent && (
-                      <p className="text-center text-green-300">Заявка отправлена!</p>
+                      <p className="text-center text-green-300">
+                        Заявка отправлена!
+                      </p>
                     )}
                   </form>
                 </div>
@@ -234,10 +255,10 @@ export function Header() {
                     rel="noopener noreferrer"
                     className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center shadow-lg"
                   >
-                    <img 
-                      src="/uploads/tg.png" 
-                      alt="Telegram" 
-                      className="w-7 h-7" 
+                    <img
+                      src="/uploads/tg.png"
+                      alt="Telegram"
+                      className="w-7 h-7"
                     />
                   </a>
                   <a
@@ -246,10 +267,10 @@ export function Header() {
                     rel="noopener noreferrer"
                     className="w-14 h-14 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center shadow-lg"
                   >
-                    <img 
-                      src="/uploads/whatsapp.png" 
-                      alt="WhatsApp" 
-                      className="w-7 h-7" 
+                    <img
+                      src="/uploads/whatsapp.png"
+                      alt="WhatsApp"
+                      className="w-7 h-7"
                     />
                   </a>
                 </div>
