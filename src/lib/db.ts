@@ -1,6 +1,7 @@
 import { Low } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
 import path from "node:path";
+import fs from "node:fs";
 
 export type TableName =
   | "contact_inquiries"
@@ -24,7 +25,11 @@ interface DatabaseSchema {
   _counter: number;
 }
 
-const dbPath = path.join(process.cwd(), "database.json");
+const dataDir = path.join(process.cwd(), "data");
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+const dbPath = path.join(dataDir, "database.json");
 
 // LowDB database instance
 let db: Low<DatabaseSchema> | null = null;
@@ -118,7 +123,7 @@ export async function insertInquiry(
   };
 }
 
-export async function setInquiryTakenBy(id: number, user: string): Promise<boolean> {
+export async function setInquiryTakenBy(id: number, user: string): Promise<{ success: boolean; owner?: string }> {
   const database = await getDb();
   const tables: TableName[] = [
     "contact_inquiries",
@@ -129,14 +134,33 @@ export async function setInquiryTakenBy(id: number, user: string): Promise<boole
   for (const table of tables) {
     const inquiry = database.data[table].find((i) => i.id === id);
     if (inquiry) {
-      if (inquiry.takenBy) return false;
+      if (inquiry.takenBy) {
+        return { success: false, owner: inquiry.takenBy };
+      }
       inquiry.takenBy = user;
       await database.write();
-      return true;
+      return { success: true, owner: user };
     }
   }
 
-  return false;
+  return { success: false };
+}
+
+export async function getInquiryOwner(id: number): Promise<string | undefined> {
+  const database = await getDb();
+  const tables: TableName[] = [
+    "contact_inquiries",
+    "calculator_inquiries",
+    "callback_inquiries",
+  ];
+
+  for (const table of tables) {
+    const inquiry = database.data[table].find((i) => i.id === id);
+    if (inquiry) {
+      return inquiry.takenBy;
+    }
+  }
+  return undefined;
 }
 
 export default getDb;

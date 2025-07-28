@@ -10,8 +10,7 @@ const getBot = () => {
   if (bot) return bot;
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return null;
-  bot = new TelegramBot(token, { polling: true });
-  bot.on("callback_query", handleCallbackQuery);
+  bot = new TelegramBot(token, { polling: false });
   return bot;
 };
 
@@ -96,10 +95,11 @@ async function handleCallbackQuery(query: TelegramBot.CallbackQuery) {
   if (!query.data.startsWith("take_")) return;
   const id = Number(query.data.replace("take_", ""));
   const username = query.from.username || query.from.first_name;
-  const success = await setInquiryTakenBy(id, `@${username}`);
+  const { success, owner } = await setInquiryTakenBy(id, `@${username}`);
 
   const original = (query.message.text || "").replace(/\nВзял.*$/, "");
-  const newText = success ? `${original}\nВзял @${username}` : `${original}\nУже взято`;
+  const takenUser = owner || `@${username}`;
+  const newText = `${original}\nВзял ${takenUser}`;
 
   try {
     await bot.editMessageText(newText, {
@@ -107,7 +107,7 @@ async function handleCallbackQuery(query: TelegramBot.CallbackQuery) {
       message_id: query.message.message_id,
       parse_mode: "HTML",
     });
-    await bot.answerCallbackQuery(query.id, { text: success ? "Заявка ваша" : "Уже взято" });
+    await bot.answerCallbackQuery(query.id, { text: success ? "Заявка ваша" : `Заявку уже взял ${takenUser}` });
   } catch (err) {
     console.error("Failed to handle take", err);
   }

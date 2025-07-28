@@ -1,0 +1,15 @@
+{
+  "contact_inquiries": [],
+  "calculator_inquiries": [],
+  "callback_inquiries": [
+    {
+      "id": 1,
+      "name": "ыава",
+      "phone": "+7 (395) 923-93-96",
+      "message": "Обратный звонок",
+      "createdAt": "2025-07-28T12:28:25.380Z",
+      "takenBy": "@ywhsyshwhw"
+    }
+  ],
+  "_counter": 1
+}
