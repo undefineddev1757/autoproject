@@ -101,14 +101,20 @@ async function handleCallbackQuery(query: TelegramBot.CallbackQuery) {
   const takenUser = owner || `@${username}`;
   const newText = `${original}\nВзял ${takenUser}`;
 
+  // answer first
+  try {
+    await bot.answerCallbackQuery(query.id, { text: success ? "Заявка ваша" : `Заявку уже взял ${takenUser}` });
+  } catch (err) {
+    console.error("Failed to answer callback", err);
+  }
+
   try {
     await bot.editMessageText(newText, {
       chat_id: query.message.chat.id,
       message_id: query.message.message_id,
       parse_mode: "HTML",
     });
-    await bot.answerCallbackQuery(query.id, { text: success ? "Заявка ваша" : `Заявку уже взял ${takenUser}` });
   } catch (err) {
-    console.error("Failed to handle take", err);
+    console.error("Failed to edit message", err);
   }
 }
