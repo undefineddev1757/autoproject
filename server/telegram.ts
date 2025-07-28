@@ -1,5 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import { Inquiry } from "@/lib/inquirySchema";
+import { setInquiryTakenBy } from "../src/lib/db";
 
 let bot: TelegramBot | null = null;
 let chatId: string | null = null;
@@ -10,9 +11,10 @@ export function initTelegramBot(token: string, groupChatId: string) {
     return;
   }
   try {
-    bot = new TelegramBot(token, { polling: false });
+    bot = new TelegramBot(token, { polling: true });
     chatId = groupChatId;
     console.log("Telegram bot initialized");
+    bot.on("callback_query", handleCallbackQuery);
   } catch (err) {
     console.error("Failed to init Telegram bot", err);
     bot = null;
@@ -26,7 +28,14 @@ export async function sendInquiryNotification(inquiry: Inquiry) {
   }
   try {
     const message = formatInquiryMessage(inquiry);
-    await bot.sendMessage(chatId, message, { parse_mode: "HTML" });
+    await bot.sendMessage(chatId, message, {
+      parse_mode: "HTML",
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: "Take", callback_data: `take_${inquiry.id}` }],
+        ],
+      },
+    });
   } catch (err) {
     console.error("Telegram notification failed", err);
   }
@@ -49,4 +58,26 @@ function formatInquiryMessage(inquiry: Inquiry) {
   }
   formatted += `\n<i>Дата: ${new Date(createdAt).toLocaleString("ru-RU")}</i>`;
   return formatted;
-} 
+}
+
+async function handleCallbackQuery(query: TelegramBot.CallbackQuery) {
+  if (!bot || !query.message || !query.data) return;
+  if (!query.data.startsWith("take_")) return;
+  const id = Number(query.data.replace("take_", ""));
+  const username = query.from.username || query.from.first_name;
+  const success = await setInquiryTakenBy(id, `@${username}`);
+
+  const original = (query.message.text || "").replace(/\nВзял.*$/, "");
+  const newText = success ? `${original}\nВзял @${username}` : `${original}\nУже взято`;
+
+  try {
+    await bot.editMessageText(newText, {
+      chat_id: query.message.chat.id,
+      message_id: query.message.message_id,
+      parse_mode: "HTML",
+    });
+    await bot.answerCallbackQuery(query.id, { text: success ? "Заявка ваша" : "Уже взято" });
+  } catch (err) {
+    console.error("Failed to handle take", err);
+  }
+}
