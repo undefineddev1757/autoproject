@@ -12,8 +12,8 @@ services:
         NODE_ENV: ${NODE_ENV:-development}
     environment:
       <<: *common-env
-      TELEGRAM_BOT_TOKEN: 7798975929:AAHjLppY_X9aGW_WmLZrAlqxoXz7_4e8KEM
-      TELEGRAM_CHAT_ID: -1002897626211
+      TELEGRAM_BOT_TOKEN: 7553529520:AAEa-KzgBZdjhxDsLpMI9JZOA27NP2c3pz0
+      TELEGRAM_CHAT_ID: -4681394496
     ports:
       - "3000:3000"
     depends_on:
@@ -27,8 +27,9 @@ services:
         NODE_ENV: ${NODE_ENV:-development}
     environment:
       <<: *common-env
-      TELEGRAM_BOT_TOKEN: 7798975929:AAHjLppY_X9aGW_WmLZrAlqxoXz7_4e8KEM
-      TELEGRAM_CHAT_ID: -1002897626211
+      TELEGRAM_BOT_TOKEN: 7553529520:AAEa-KzgBZdjhxDsLpMI9JZOA27NP2c3pz0
+      TELEGRAM_CHAT_ID: -4681394496
     ports:
       - "5000:5000"
-
+    volumes:
+      - ./data:/app/data              

@@ -40,7 +40,12 @@ export async function POST(req: NextRequest) {
     const tgBot = getBot();
     if (tgBot && chatId) {
       const message = formatInquiryMessage(inquiry);
-      await tgBot.sendMessage(chatId, message, { parse_mode: "HTML" });
+      try {
+        await tgBot.sendMessage(chatId, message, { parse_mode: "HTML" });
+      } catch (err) {
+        console.error("Telegram send error", err);
+        // Continue without failing the request
+      }
     }
 
     return NextResponse.json(inquiry, { status: 201 });

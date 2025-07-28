@@ -1,6 +1,5 @@
-import type { Database } from "sql.js";
-import type { SqlJsStatic } from "sql.js";
-import fs from "node:fs";
+import { Low } from 'lowdb'
+import { JSONFile } from 'lowdb/node'
 import path from "node:path";
 
 export type TableName =
@@ -8,65 +7,52 @@ export type TableName =
   | "calculator_inquiries"
   | "callback_inquiries";
 
-const dbPath = path.join(process.cwd(), "database.sqlite");
+interface InquiryData {
+  id: number;
+  name?: string;
+  email?: string;
+  phone: string;
+  message?: string;
+  createdAt: string;
+}
 
-// SQL.js database instance (initialized asynchronously)
-let db: Database | null = null;
+interface DatabaseSchema {
+  contact_inquiries: InquiryData[];
+  calculator_inquiries: InquiryData[];
+  callback_inquiries: InquiryData[];
+  _counter: number;
+}
 
-// DDL statements for all tables in the application
-const tables: Record<TableName, string> = {
-  contact_inquiries: `CREATE TABLE IF NOT EXISTS contact_inquiries (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    phone TEXT,
-    message TEXT,
-    createdAt TEXT DEFAULT CURRENT_TIMESTAMP
-  );`,
-  calculator_inquiries: `CREATE TABLE IF NOT EXISTS calculator_inquiries (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    phone TEXT,
-    message TEXT,
-    createdAt TEXT DEFAULT CURRENT_TIMESTAMP
-  );`,
-  callback_inquiries: `CREATE TABLE IF NOT EXISTS callback_inquiries (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    phone TEXT,
-    message TEXT,
-    createdAt TEXT DEFAULT CURRENT_TIMESTAMP
-  );`,
+const dbPath = path.join(process.cwd(), "database.json");
+
+// LowDB database instance
+let db: Low<DatabaseSchema> | null = null;
+
+const defaultData: DatabaseSchema = {
+  contact_inquiries: [],
+  calculator_inquiries: [],
+  callback_inquiries: [],
+  _counter: 0,
 };
 
-async function getDb(): Promise<Database> {
+async function getDb(): Promise<Low<DatabaseSchema>> {
   if (db) return db;
 
-  // Initialise sql.js (works for both ESM and CommonJS builds)
-  // Use the ESM build to avoid CommonJS globals errors in Node
-  const initModule = await import("sql.js/dist/sql-wasm.js");
-  // Some bundlers export function as default, others export the object itself
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  const initSqlJs = (
-    initModule as { default: (config?: unknown) => Promise<SqlJsStatic> }
-  ).default;
-  const SQL: SqlJsStatic = await initSqlJs({
-      locateFile: (file: string) =>
-        path.join(process.cwd(), "node_modules/sql.js/dist", file),
-  });
-  const filebuffer = fs.existsSync(dbPath) ? fs.readFileSync(dbPath) : undefined;
-  db = filebuffer ? new SQL.Database(filebuffer) : new SQL.Database();
-  const database = db as Database;
-
-  // Create tables if they do not exist
-  for (const sql of Object.values(tables)) {
-    database.exec(sql);
+  const adapter = new JSONFile<DatabaseSchema>(dbPath);
+  db = new Low(adapter, defaultData);
+  
+  // Read data from JSON file, this will set db.data content
+  await db.read();
+  
+  // If file doesn't exist or is empty, db.data will be null
+  // In this case, use default data and write it to the file
+  if (db.data === null) {
+    db.data = defaultData;
+    await db.write();
   }
 
-  console.log("SQLite (sql.js) initialised successfully");
-  return database;
+  console.log("LowDB initialised successfully");
+  return db;
 }
 
 export function getTableForMessage(message?: string): TableName {
@@ -80,19 +66,24 @@ export async function isDuplicate(
   phone?: string,
 ): Promise<boolean> {
   if (!email && !phone) return false;
-  const db = await getDb();
-  const tbls: TableName[] = [
+  
+  const database = await getDb();
+  
+  const tables: TableName[] = [
     "contact_inquiries",
-    "calculator_inquiries",
+    "calculator_inquiries", 
     "callback_inquiries",
   ];
-  for (const t of tbls) {
-    const statement = db.prepare(
-      `SELECT 1 FROM ${t} WHERE (phone = ? AND phone != '') OR (email = ? AND email != '') LIMIT 1`,
+  
+  for (const tableName of tables) {
+    const table = database.data[tableName];
+    const found = table.find((inquiry: InquiryData) => 
+      (phone && inquiry.phone === phone && inquiry.phone !== '') ||
+      (email && inquiry.email === email && inquiry.email !== '')
     );
-    const result = statement.getAsObject([phone ?? "", email ?? ""]);
-    if (result["1"]) return true;
+    if (found) return true;
   }
+  
   return false;
 }
 
@@ -100,21 +91,28 @@ export async function insertInquiry(
   table: TableName,
   data: { name?: string; email?: string; phone: string; message?: string },
 ): Promise<{ id: number; createdAt: Date }> {
-  const db = await getDb();
-  const stmt = db.prepare(
-    `INSERT INTO ${table} (name, email, phone, message) VALUES (?, ?, ?, ?)`,
-  );
-  stmt.run([
-    data.name ?? null,
-    data.email ?? null,
-    data.phone,
-    data.message ?? null,
-  ]);
-  const idStmt = db.prepare("SELECT last_insert_rowid() as id;");
-  const res = idStmt.getAsObject();
+  const database = await getDb();
+  
+  // Increment counter for unique ID
+  database.data._counter++;
+  const id = database.data._counter;
+  const createdAt = new Date().toISOString();
+  
+  const inquiry: InquiryData = {
+    id,
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    message: data.message,
+    createdAt,
+  };
+  
+  database.data[table].push(inquiry);
+  await database.write();
+  
   return {
-    id: Number(res.id),
-    createdAt: new Date(),
+    id,
+    createdAt: new Date(createdAt),
   };
 }
 
