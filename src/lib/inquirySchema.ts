@@ -12,6 +12,7 @@ export const insertInquirySchema = z.object({
 export const fullInquirySchema = insertInquirySchema.extend({
   id: z.number(),
   createdAt: z.date(),
+  takenBy: z.string().optional(),
 });
 
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;

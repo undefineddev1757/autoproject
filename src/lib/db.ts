@@ -14,6 +14,7 @@ interface InquiryData {
   phone: string;
   message?: string;
   createdAt: string;
+  takenBy?: string;
 }
 
 interface DatabaseSchema {
@@ -105,6 +106,7 @@ export async function insertInquiry(
     phone: data.phone,
     message: data.message,
     createdAt,
+    takenBy: undefined,
   };
   
   database.data[table].push(inquiry);
@@ -114,6 +116,27 @@ export async function insertInquiry(
     id,
     createdAt: new Date(createdAt),
   };
+}
+
+export async function setInquiryTakenBy(id: number, user: string): Promise<boolean> {
+  const database = await getDb();
+  const tables: TableName[] = [
+    "contact_inquiries",
+    "calculator_inquiries",
+    "callback_inquiries",
+  ];
+
+  for (const table of tables) {
+    const inquiry = database.data[table].find((i) => i.id === id);
+    if (inquiry) {
+      if (inquiry.takenBy) return false;
+      inquiry.takenBy = user;
+      await database.write();
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export default getDb;

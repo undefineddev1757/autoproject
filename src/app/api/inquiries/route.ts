@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import TelegramBot from "node-telegram-bot-api";
 import { insertInquirySchema, type Inquiry } from "@/lib/inquirySchema";
 import { z } from "zod";
-import { getTableForMessage, insertInquiry, isDuplicate } from "@/lib/db";
+import { getTableForMessage, insertInquiry, isDuplicate, setInquiryTakenBy } from "@/lib/db";
 
 // Reuse one bot instance per environment
 let bot: TelegramBot | null = null;
@@ -10,7 +10,8 @@ const getBot = () => {
   if (bot) return bot;
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return null;
-  bot = new TelegramBot(token, { polling: false });
+  bot = new TelegramBot(token, { polling: true });
+  bot.on("callback_query", handleCallbackQuery);
   return bot;
 };
 
@@ -41,7 +42,14 @@ export async function POST(req: NextRequest) {
     if (tgBot && chatId) {
       const message = formatInquiryMessage(inquiry);
       try {
-        await tgBot.sendMessage(chatId, message, { parse_mode: "HTML" });
+        await tgBot.sendMessage(chatId, message, {
+          parse_mode: "HTML",
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: "Take", callback_data: `take_${inquiry.id}` }],
+            ],
+          },
+        });
       } catch (err) {
         console.error("Telegram send error", err);
         // Continue without failing the request
@@ -81,4 +89,26 @@ function formatInquiryMessage(inquiry: Inquiry) {
   }
   formatted += `\n<i>Дата: ${new Date(createdAt).toLocaleString("ru-RU")}</i>`;
   return formatted;
+}
+
+async function handleCallbackQuery(query: TelegramBot.CallbackQuery) {
+  if (!bot || !query.message || !query.data) return;
+  if (!query.data.startsWith("take_")) return;
+  const id = Number(query.data.replace("take_", ""));
+  const username = query.from.username || query.from.first_name;
+  const success = await setInquiryTakenBy(id, `@${username}`);
+
+  const original = (query.message.text || "").replace(/\nВзял.*$/, "");
+  const newText = success ? `${original}\nВзял @${username}` : `${original}\nУже взято`;
+
+  try {
+    await bot.editMessageText(newText, {
+      chat_id: query.message.chat.id,
+      message_id: query.message.message_id,
+      parse_mode: "HTML",
+    });
+    await bot.answerCallbackQuery(query.id, { text: success ? "Заявка ваша" : "Уже взято" });
+  } catch (err) {
+    console.error("Failed to handle take", err);
+  }
 }
