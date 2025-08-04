@@ -12,8 +12,11 @@ export function Footer() {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-          {/* Company name only, no logo */}
-          <div className="text-white font-bold text-lg">GLOBAL STAR AUTO</div>
+          {/* Company name and address */}
+          <div className="text-center md:text-left">
+            <div className="text-white font-bold text-lg">GLOBAL STAR AUTO</div>
+            <div className="text-gray-400 text-sm mt-1">Владивосток, ул. Авроровская, д. 10</div>
+          </div>
 
           {/* Contact & Social */}
           <div className="flex items-center space-x-6">

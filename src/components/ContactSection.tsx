@@ -174,17 +174,17 @@ export function ContactSection() {
           </div>
 
           {/* Office address */}
-          {/* <div className="mt-16 text-center">
+          <div className="mt-16 text-center">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="text-4xl mb-4">📍</div>
               <h4 className="text-xl font-bold text-white mb-2">
-                Офис в Москве
+                Офис во Владивостоке
               </h4>
               <p className="text-gray-300">
-                ул. Краснопролетарская, д. 17, стр. 4, офис 082
+                ул. Авроровская, д. 10
               </p>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>
