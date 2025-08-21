@@ -44,8 +44,29 @@ export default function RootLayout({
             gtag('config', 'G-6N2GKSWNMK');
           `}
         </Script>
+        {/* Top.Mail.Ru counter */}
+        <Script id="top-mail-ru" strategy="afterInteractive">
+          {`
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3682588", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+          `}
+        </Script>
+        {/* /Top.Mail.Ru counter */}
       </head>
       <body suppressHydrationWarning className="antialiased">
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              '<div><img src="https://top-fwz1.mail.ru/counter?id=3682588;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div>',
+          }}
+        />
         <ClientBody>{children}</ClientBody>
       </body>
     </html>
