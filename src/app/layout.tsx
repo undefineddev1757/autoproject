@@ -67,9 +67,9 @@ _tmr.push({id: "3682588", type: "pageView", start: (new Date()).getTime()});
                 m[i].l=1*new Date();
                 for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
                 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103961315', 'ym');
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103969698', 'ym');
 
-            ym(103961315, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+            ym(103969698, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
           `}
         </Script>
         {/* /Yandex.Metrika counter */}
@@ -84,7 +84,7 @@ _tmr.push({id: "3682588", type: "pageView", start: (new Date()).getTime()});
         <noscript
           dangerouslySetInnerHTML={{
             __html:
-              '<div><img src="https://mc.yandex.ru/watch/103961315" style="position:absolute; left:-9999px;" alt="" /></div>',
+              '<div><img src="https://mc.yandex.ru/watch/103969698" style="position:absolute; left:-9999px;" alt="" /></div>',
           }}
         />
         <ClientBody>{children}</ClientBody>
