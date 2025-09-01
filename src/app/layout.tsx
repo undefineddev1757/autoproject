@@ -59,12 +59,32 @@ _tmr.push({id: "3682588", type: "pageView", start: (new Date()).getTime()});
           `}
         </Script>
         {/* /Top.Mail.Ru counter */}
+        {/* Yandex.Metrika counter */}
+        <Script id="yandex-metrika" strategy="afterInteractive">
+          {`
+            (function(m,e,t,r,i,k,a){
+                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103961315', 'ym');
+
+            ym(103961315, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+          `}
+        </Script>
+        {/* /Yandex.Metrika counter */}
       </head>
       <body suppressHydrationWarning className="antialiased">
         <noscript
           dangerouslySetInnerHTML={{
             __html:
               '<div><img src="https://top-fwz1.mail.ru/counter?id=3682588;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div>',
+          }}
+        />
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              '<div><img src="https://mc.yandex.ru/watch/103961315" style="position:absolute; left:-9999px;" alt="" /></div>',
           }}
         />
         <ClientBody>{children}</ClientBody>
