@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import YandexMetrika from "@/components/YandexMetrika";
+import YandexMetrikaInitializer from "@/components/yandex-metrika/YandexMetrikaInitializer";
+import YandexMetrikaContainer from "@/components/yandex-metrika/YandexMetrikaContainer";
+import { YM_COUNTER_ID, analyticsEnabled } from "@/components/yandex-metrika/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <YandexMetrikaInitializer
+          id={YM_COUNTER_ID}
+          initParameters={{ ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true, defer: true }}
+        />
+      </head>
       <body>
         {children}
-        <YandexMetrika />
+        <YandexMetrikaContainer enabled={analyticsEnabled} />
       </body>
     </html>
   );
