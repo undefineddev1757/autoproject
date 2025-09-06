@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Filter, Fuel, Gauge, MapPin, Eye } from "lucide-react";
+import { cars } from "@/data/cars";
 
 export function CarCatalog() {
   const [selectedBrand, setSelectedBrand] = useState("all");
@@ -33,97 +34,8 @@ export function CarCatalog() {
     "tesla",
   ];
 
-  const cars = [
-    {
-      id: 1,
-      brand: "audi",
-      model: "RS 6 performance",
-      year: 2024,
-      engine: "4.0 л / 630 л.с.",
-      fuelType: "бензин",
-      mileage: 35,
-      price: "23 490 000",
-      status: "В наличии",
-      statusColor: "bg-green-500",
-      image: "🚗",
-      available: true,
-    },
-    {
-      id: 2,
-      brand: "bmw",
-      model: "X7 40d",
-      year: 2024,
-      engine: "3.0 л / 340 л.с.",
-      fuelType: "дизель",
-      mileage: 7500,
-      price: "18 900 000",
-      status: "В наличии",
-      statusColor: "bg-green-500",
-      image: "🚙",
-      available: true,
-    },
-    {
-      id: 3,
-      brand: "bmw",
-      model: "M5",
-      year: 2024,
-      engine: "4.4 л / 727 л.с.",
-      fuelType: "гибрид",
-      mileage: 25,
-      price: "25 790 000",
-      status: "В наличии",
-      statusColor: "bg-green-500",
-      image: "🏎️",
-      available: true,
-    },
-    {
-      id: 4,
-      brand: "bmw",
-      model: "760i",
-      year: 2023,
-      engine: "4.4 л / 544 л.с.",
-      fuelType: "бензин",
-      mileage: 7060,
-      price: "20 615 000",
-      status: "В наличии",
-      statusColor: "bg-green-500",
-      image: "🚗",
-      available: true,
-    },
-    {
-      id: 5,
-      brand: "mercedes-benz",
-      model: "AMG G63",
-      year: 2019,
-      engine: "4.0 л / 585 л.с.",
-      fuelType: "бензин",
-      mileage: 83030,
-      price: "16 249 000",
-      status: "В наличии",
-      statusColor: "bg-green-500",
-      image: "🚙",
-      available: true,
-    },
-    {
-      id: 6,
-      brand: "porsche",
-      model: "Cayenne S",
-      year: 2020,
-      engine: "2.9 л / 340 л.с.",
-      fuelType: "бензин",
-      mileage: 25,
-      price: "15 797 865",
-      status: "Под заказ",
-      statusColor: "bg-blue-500",
-      image: "🏎️",
-      available: false,
-    },
-  ];
-
   const filteredCars =
-    selectedBrand === "all"
-      ? cars
-      : cars.filter((car) => car.brand === selectedBrand);
+    selectedBrand === "all" ? cars : cars.filter((car) => car.brand === selectedBrand);
 
   const getBrandDisplayName = (brand: string) => {
     const brandNames: { [key: string]: string } = {
@@ -177,33 +89,22 @@ export function CarCatalog() {
         {/* Results count */}
         <div className="mb-6 text-center">
           <p className="text-gray-600">
-            Найдено:{" "}
-            <span className="font-semibold">{filteredCars.length}</span>{" "}
-            автомобилей
+            Найдено: <span className="font-semibold">{filteredCars.length}</span> автомобилей
           </p>
         </div>
 
         {/* Car Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {filteredCars.map((car) => (
-            <Card
-              key={car.id}
-              className="overflow-hidden group hover:shadow-xl transition-shadow duration-300"
-            >
+            <Card key={car.id} className="overflow-hidden group hover:shadow-xl transition-shadow duration-300">
               {/* Status Badge */}
               <div className="relative">
                 <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 text-center">
                   <div className="text-6xl mb-4">{car.image}</div>
                 </div>
-                <Badge
-                  className={`absolute top-4 left-4 ${car.statusColor} text-white`}
-                >
-                  {car.status}
-                </Badge>
+                <Badge className={`absolute top-4 left-4 ${car.statusColor} text-white`}>{car.status}</Badge>
                 {car.available && (
-                  <Badge className="absolute top-4 right-4 bg-yellow-500 text-white">
-                    Доступен в лизинг
-                  </Badge>
+                  <Badge className="absolute top-4 right-4 bg-yellow-500 text-white">Доступен в лизинг</Badge>
                 )}
               </div>
 
@@ -229,17 +130,13 @@ export function CarCatalog() {
                     </div>
                     <div className="flex items-center space-x-2 text-gray-600">
                       <MapPin className="w-4 h-4" />
-                      <span className="text-sm">
-                        Пробег: {car.mileage.toLocaleString()} км
-                      </span>
+                      <span className="text-sm">Пробег: {car.mileage.toLocaleString()} км</span>
                     </div>
                   </div>
 
                   {/* Price */}
                   <div className="pt-4 border-t border-gray-200">
-                    <div className="text-2xl font-bold text-gray-900 mb-2">
-                      {car.price} ₽
-                    </div>
+                    <div className="text-2xl font-bold text-gray-900 mb-2">{car.price} ₽</div>
                   </div>
 
                   {/* Action Button */}
@@ -262,13 +159,8 @@ export function CarCatalog() {
 
         {/* Contact CTA */}
         <div className="mt-16 text-center p-8 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Не нашли подходящий автомобиль?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Сообщите нам ваши пожелания, и мы найдем идеальный вариант
-            специально для вас
-          </p>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Не нашли подходящий автомобиль?</h3>
+          <p className="text-gray-600 mb-6">Сообщите нам ваши пожелания, и мы найдем идеальный вариант специально для вас</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://t.me/gsat_ru"

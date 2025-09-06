@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Mail, Phone, CheckCircle, Car } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { cars } from "@/data/cars";
 
 function ContactPageContent() {
   const router = useRouter();
@@ -65,6 +66,28 @@ function ContactPageContent() {
     const formatted = formatPhone(value);
     setFormData({ ...formData, phone: formatted });
   };
+
+  const params = Object.fromEntries(searchParams.entries());
+  const normalizeBrand = (brand: string) => brand.toLowerCase().replace(/\s+/g, "-");
+  const toNumber = (value: string | undefined): number | undefined => {
+    if (!value) return undefined;
+    const digits = value.replace(/\D/g, "");
+    return digits ? parseInt(digits, 10) : undefined;
+  };
+
+  const filteredCars = cars.filter((car) => {
+    const brandOk = params.brand ? car.brand === normalizeBrand(params.brand) : true;
+    const modelOk = params.model ? car.model.toLowerCase().includes(params.model.toLowerCase()) : true;
+    const yearFromOk = params.yearFrom ? car.year >= Number(params.yearFrom) : true;
+    const yearToOk = params.yearTo ? car.year <= Number(params.yearTo) : true;
+    const priceFrom = toNumber(params.priceFrom);
+    const priceTo = toNumber(params.priceTo);
+    const carPrice = toNumber(car.price) || 0;
+    const priceFromOk = priceFrom !== undefined ? carPrice >= priceFrom : true;
+    const priceToOk = priceTo !== undefined ? carPrice <= priceTo : true;
+    return brandOk && modelOk && yearFromOk && yearToOk && priceFromOk && priceToOk;
+  });
+  const previewCars = filteredCars.slice(0, 3);
 
   if (isSubmitted) {
     return (
@@ -174,6 +197,27 @@ function ContactPageContent() {
                 </p>
               </div>
 
+              {/* Preview results */}
+              <div className="mb-8 sm:mb-10">
+                <div className="bg-white/10 border border-white/20 rounded-2xl p-4 sm:p-6">
+                  <p className="text-white text-base sm:text-lg mb-3">
+                    {filteredCars.length > 0
+                      ? `Мы подобрали ${filteredCars.length} авто по вашему запросу`
+                      : "Мы нашли подходящие варианты — оставьте контакты, и мы вышлем подборку"}
+                  </p>
+                  {previewCars.length > 0 && (
+                    <ul className="space-y-2 text-white/80 text-sm">
+                      {previewCars.map((c) => (
+                        <li key={c.id} className="flex justify-between">
+                          <span>{c.brand.toUpperCase()} {c.model} · {c.year}</span>
+                          <span>{c.price} ₽</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                 <div className="space-y-4 sm:space-y-6">
@@ -187,9 +231,7 @@ function ContactPageContent() {
                       required
                       placeholder="your.email@example.com"
                       value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="h-14 sm:h-16 text-base sm:text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-xl sm:rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300 touch-manipulation"
                     />
                   </div>
@@ -213,9 +255,7 @@ function ContactPageContent() {
                 {/* Additional info */}
                 <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl p-6 border border-indigo-400/20">
                   <div className="text-center">
-                    <h3 className="text-white font-semibold text-lg mb-2">
-                      Что будет дальше?
-                    </h3>
+                    <h3 className="text-white font-semibold text-lg mb-2">Что будет дальше?</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-white/70">
                       <div className="flex flex-col items-center">
                         <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold mb-2">
@@ -251,38 +291,26 @@ function ContactPageContent() {
                     {isLoading ? (
                       <>
                         <div className="w-5 sm:w-6 h-5 sm:h-6 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2 sm:mr-3" />
-                        <span className="font-semibold">
-                          Отправляем заявку...
-                        </span>
+                        <span className="font-semibold">Отправляем заявку...</span>
                       </>
                     ) : (
                       <>
-                        <img
-                          src="/uploads/tg.png"
-                          alt="Telegram"
-                          className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3"
-                        />
+                        <img src="/uploads/tg.png" alt="Telegram" className="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3" />
                         <span className="font-semibold">Отправить заявку</span>
                       </>
                     )}
                   </Button>
                 </div>
-                {error && (
-                  <p className="text-red-400 text-center mt-4">{error}</p>
-                )}
+                {error && <p className="text-red-400 text-center mt-4">{error}</p>}
               </form>
 
               {/* Privacy notice */}
               <div className="mt-8 text-center">
                 <p className="text-white/50 text-sm leading-relaxed">
-                  Нажимая кнопку "Отправить заявку", вы соглашаетесь с{" "}
-                  <span className="text-indigo-400 cursor-pointer hover:text-indigo-300 transition-colors">
-                    политикой конфиденциальности
-                  </span>{" "}
-                  и{" "}
-                  <span className="text-indigo-400 cursor-pointer hover:text-indigo-300 transition-colors">
-                    условиями использования
-                  </span>
+                  Нажимая кнопку "Отправить заявку", вы соглашаетесь с {""}
+                  <span className="text-indigo-400 cursor-pointer hover:text-indigo-300 transition-colors">политикой конфиденциальности</span> {""}
+                  и {""}
+                  <span className="text-indigo-400 cursor-pointer hover:text-indigo-300 transition-colors">условиями использования</span>
                 </p>
               </div>
             </div>

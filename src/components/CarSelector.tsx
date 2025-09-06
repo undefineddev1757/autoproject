@@ -86,6 +86,29 @@ const BRAND_ICONS: Record<string, React.ElementType> = {
 
 const YEARS = Array.from({ length: 20 }, (_, i) => (2024 - i).toString());
 
+const POPULAR_MODELS: Record<string, string[]> = {
+  BMW: ["3 Series", "5 Series", "7 Series", "X3", "X5", "X7", "M5"],
+  "Mercedes-Benz": ["C-Class", "E-Class", "S-Class", "GLC", "GLE", "G-Class", "AMG GT"],
+  Audi: ["A4", "A6", "A8", "Q5", "Q7", "RS 6"],
+  Toyota: ["Corolla", "Camry", "RAV4", "Land Cruiser", "Highlander", "Prado"],
+  Lexus: ["IS", "ES", "RX", "NX", "LX"],
+  Porsche: ["Cayenne", "Macan", "911", "Panamera", "Taycan"],
+  Honda: ["Civic", "Accord", "CR-V", "Pilot"],
+  Hyundai: ["Elantra", "Sonata", "Tucson", "Santa Fe"],
+  Kia: ["Rio", "Ceed", "Sportage", "Sorento"],
+  Mazda: ["Mazda3", "Mazda6", "CX-5", "CX-9"],
+  Ford: ["Focus", "Mondeo", "Kuga", "Explorer"],
+  Chevrolet: ["Cruze", "Malibu", "Equinox", "Tahoe"],
+  Volvo: ["XC60", "XC90", "S60", "V60"],
+  Jeep: ["Compass", "Cherokee", "Grand Cherokee", "Wrangler"],
+  Tesla: ["Model 3", "Model Y", "Model S", "Model X"],
+  "Land Rover": ["Discovery", "Defender", "Range Rover", "Range Rover Sport"],
+  Nissan: ["Qashqai", "X-Trail", "Teana", "Altima"],
+  Subaru: ["Impreza", "Forester", "Outback", "XV"],
+  Mitsubishi: ["Outlander", "Pajero", "ASX", "Lancer"],
+  Volkswagen: ["Golf", "Passat", "Tiguan", "Touareg"],
+};
+
 export function CarSelector() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -96,6 +119,9 @@ export function CarSelector() {
     priceFrom: "",
     priceTo: "",
   });
+  const [isCustomModel, setIsCustomModel] = useState(false);
+
+  const selectedBrandModels = formData.brand ? POPULAR_MODELS[formData.brand] : undefined;
 
   return (
     <section className="relative overflow-hidden py-24" id="selector">
@@ -158,9 +184,10 @@ export function CarSelector() {
                     Марка автомобиля
                   </label>
                   <Select
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, brand: value })
-                    }
+                    onValueChange={(value) => {
+                      setFormData({ ...formData, brand: value, model: "" });
+                      setIsCustomModel(false);
+                    }}
                   >
                     <SelectTrigger className="h-14 bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white">
                       <SelectValue placeholder="Выберите марку" />
@@ -183,13 +210,49 @@ export function CarSelector() {
                   <label className="text-white/80 text-sm font-medium">
                     Модель
                   </label>
-                  <Input
-                    placeholder="Введите модель"
-                    className="h-14 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300"
-                    onChange={(e) =>
-                      setFormData({ ...formData, model: e.target.value })
-                    }
-                  />
+                  {selectedBrandModels ? (
+                    <>
+                      <Select
+                        onValueChange={(value) => {
+                          if (value === "__custom__") {
+                            setIsCustomModel(true);
+                            setFormData({ ...formData, model: "" });
+                          } else {
+                            setIsCustomModel(false);
+                            setFormData({ ...formData, model: value });
+                          }
+                        }}
+                      >
+                        <SelectTrigger className="h-14 bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white">
+                          <SelectValue placeholder="Выберите модель" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
+                          {selectedBrandModels.map((model) => (
+                            <SelectItem key={`model-${model}`} value={model} className="text-white hover:bg-white/10">
+                              {model}
+                            </SelectItem>
+                          ))}
+                          <SelectItem value="__custom__" className="text-white hover:bg-white/10">
+                            Другая модель (ввести вручную)
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {isCustomModel && (
+                        <Input
+                          placeholder="Введите модель"
+                          className="h-14 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300 mt-3"
+                          onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+                          value={formData.model}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Input
+                      placeholder="Введите модель"
+                      className="h-14 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300"
+                      onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+                    />
+                  )}
                 </div>
               </div>
 
@@ -200,20 +263,14 @@ export function CarSelector() {
                     Год от
                   </label>
                   <Select
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, yearFrom: value })
-                    }
+                    onValueChange={(value) => setFormData({ ...formData, yearFrom: value })}
                   >
                     <SelectTrigger className="h-14 bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white">
                       <SelectValue placeholder="2020" />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
                       {YEARS.map((year) => (
-                        <SelectItem
-                          key={year}
-                          value={year}
-                          className="text-white hover:bg-white/10"
-                        >
+                        <SelectItem key={year} value={year} className="text-white hover:bg-white/10">
                           {year}
                         </SelectItem>
                       ))}
@@ -226,20 +283,14 @@ export function CarSelector() {
                     Год до
                   </label>
                   <Select
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, yearTo: value })
-                    }
+                    onValueChange={(value) => setFormData({ ...formData, yearTo: value })}
                   >
                     <SelectTrigger className="h-14 bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white">
                       <SelectValue placeholder="2024" />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-900/95 backdrop-blur-md border-white/20">
                       {YEARS.map((year) => (
-                        <SelectItem
-                          key={year}
-                          value={year}
-                          className="text-white hover:bg-white/10"
-                        >
+                        <SelectItem key={year} value={year} className="text-white hover:bg-white/10">
                           {year}
                         </SelectItem>
                       ))}
@@ -254,9 +305,7 @@ export function CarSelector() {
                   <Input
                     placeholder="1 000 000"
                     className="h-14 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300"
-                    onChange={(e) =>
-                      setFormData({ ...formData, priceFrom: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, priceFrom: e.target.value })}
                   />
                 </div>
 
@@ -267,9 +316,7 @@ export function CarSelector() {
                   <Input
                     placeholder="5 000 000"
                     className="h-14 text-lg bg-white/10 backdrop-blur-sm border-white/20 rounded-2xl text-white placeholder:text-white/50 focus:border-indigo-400/50 focus:bg-white/15 transition-all duration-300"
-                    onChange={(e) =>
-                      setFormData({ ...formData, priceTo: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, priceTo: e.target.value })}
                   />
                 </div>
               </div>
@@ -317,12 +364,12 @@ export function CarSelector() {
               return (
                 <div
                   key={`brand-${brand}`}
-                  className="group cursor-pointer bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-indigo-400/50 transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom duration-1000"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 transition-all duration-300 animate-in slide-in-from-bottom"
                   style={{ animationDelay: `${800 + index * 100}ms` }}
                 >
                   <div className="flex items-center space-x-2">
-                    <Icon className="w-5 h-5 text-white group-hover:text-indigo-300 transition-colors duration-300" />
-                    <span className="text-white font-semibold text-lg group-hover:text-indigo-300 transition-colors duration-300">
+                    <Icon className="w-5 h-5 text-white" />
+                    <span className="text-white font-semibold text-lg">
                       {brand}
                     </span>
                   </div>
