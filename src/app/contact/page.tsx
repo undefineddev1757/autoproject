@@ -109,8 +109,7 @@ function ContactPageContent() {
             </h1>
 
             <p className="text-xl text-white/80 mb-8 leading-relaxed">
-              Мы получили ваш запрос и свяжемся с вами в течение 30 минут для
-              обсуждения деталей подбора автомобиля.
+              Мы получили ваш запрос и свяжемся для обсуждения деталей подбора автомобиля.
             </p>
 
             <div className="space-y-4 mb-8">
@@ -191,10 +190,7 @@ function ContactPageContent() {
                   </span>
                 </h1>
 
-                <p className="text-base sm:text-lg md:text-xl text-indigo-100/80 leading-relaxed px-4">
-                  Мы свяжемся с вами в течение 30 минут и поможем найти
-                  идеальный автомобиль
-                </p>
+            
               </div>
 
               {/* Preview results */}
