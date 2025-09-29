@@ -182,7 +182,7 @@ export function WorkSteps() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+79010784098"
+                href="tel:+74999559671"
                 className="px-8 py-3 saraev-blue text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
               >
                 Позвонить сейчас
