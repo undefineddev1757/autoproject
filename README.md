@@ -38,18 +38,54 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Contact Page
 After selecting a car you will be redirected to `/contact` to provide your email and phone.
 
-## Docker
+## 🚀 Деплой
 
-The compose file supports switching between development and production modes using the `NODE_ENV` variable.
-
-Run in development mode:
+### Быстрый старт (Локально)
 
 ```bash
-NODE_ENV=development docker compose up --build
+# Установите зависимости
+pnpm install
+
+# Запустите в режиме разработки
+pnpm dev
 ```
 
-Run in production mode (default):
+### 🐳 Docker (Локальная разработка)
 
 ```bash
+# Режим разработки
+NODE_ENV=development docker compose up --build
+
+# Режим продакшена
 docker compose up --build
 ```
+
+### 🌐 Деплой на сервер Ubuntu 22.04
+
+**Быстрая инструкция**: См. [QUICK-START.md](./QUICK-START.md)
+
+**Полная документация**: См. [DEPLOY.md](./DEPLOY.md)
+
+#### Краткие шаги:
+
+1. Установите Docker на сервере
+2. Клонируйте репозиторий
+3. Создайте `.env` файл (используйте `.env.example` как шаблон)
+4. Запустите: `docker compose up -d --build`
+
+```bash
+# На сервере
+curl -fsSL https://get.docker.com | sudo sh
+git clone <URL_репозитория> autoshopone
+cd autoshopone
+cp .env.example .env
+nano .env  # заполните переменные
+docker compose up -d --build
+```
+
+**Готово!** Приложение доступно на портах:
+- Web: 3000
+- API: 5000
+
+Для настройки домена и SSL см. [DEPLOY.md](./DEPLOY.md)
+# autoproject
