@@ -1,8 +1,60 @@
-# Ignore dependencies installed locally
-node_modules
+# Файлы и директории, которые не нужно копировать в Docker образ
 
-# Ignore VCS data
+# Git
 .git
+.gitignore
+.gitmodules
 
-# Optional: ignore log files
-*.log 
+# Documentation
+*.md
+LICENSE
+
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log*
+
+# Next.js
+.next
+out
+
+# Production
+build
+dist
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+*.log
+logs
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Deployment scripts
+deploy.sh
+autoshopone.service
+nginx.conf
+DEPLOY.md
+QUICK-START.md

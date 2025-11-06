@@ -1,0 +1,46 @@
+# Systemd service файл для автоматического запуска приложения
+# 
+# Установка:
+# 1. Замените USER_NAME на ваше имя пользователя
+# 2. Замените /home/USER_NAME/autoshopone на путь к вашему проекту
+# 3. Скопируйте файл: sudo cp autoshopone.service /etc/systemd/system/
+# 4. Включите автозапуск: sudo systemctl enable autoshopone
+# 5. Запустите сервис: sudo systemctl start autoshopone
+#
+# Управление:
+# - Статус: sudo systemctl status autoshopone
+# - Запуск: sudo systemctl start autoshopone
+# - Остановка: sudo systemctl stop autoshopone
+# - Перезапуск: sudo systemctl restart autoshopone
+# - Логи: sudo journalctl -u autoshopone -f
+
+[Unit]
+Description=AutoShopOne Docker Compose Application
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/USER_NAME/autoshopone
+User=USER_NAME
+Group=USER_NAME
+
+# Команда запуска
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+
+# Команда остановки
+ExecStop=/usr/bin/docker compose down
+
+# Перезапуск при падении
+Restart=on-failure
+RestartSec=10s
+
+# Лимиты
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
+

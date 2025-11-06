@@ -5,6 +5,7 @@ x-common-env: &common-env
 
 services:
   web:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile.web
@@ -12,8 +13,8 @@ services:
         NODE_ENV: ${NODE_ENV:-development}
     environment:
       <<: *common-env
-      TELEGRAM_BOT_TOKEN: 7553529520:AAEa-KzgBZdjhxDsLpMI9JZOA27NP2c3pz0
-      TELEGRAM_CHAT_ID: -4681394496
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
     ports:
       - "3000:3000"
     depends_on:
@@ -22,6 +23,7 @@ services:
       - ./data:/app/data
 
   api:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile.api
@@ -29,8 +31,8 @@ services:
         NODE_ENV: ${NODE_ENV:-development}
     environment:
       <<: *common-env
-      TELEGRAM_BOT_TOKEN: 7553529520:AAEa-KzgBZdjhxDsLpMI9JZOA27NP2c3pz0
-      TELEGRAM_CHAT_ID: -4681394496
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
     ports:
       - "5000:5000"
     volumes:
